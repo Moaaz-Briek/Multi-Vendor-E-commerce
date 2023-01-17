@@ -28,7 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function (){
     //Admin login Route
@@ -39,5 +38,13 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::get('/dashboard', 'AdminController@dashboard');
         //Admin logout Route
         Route::get('/logout', 'AdminController@logout');
+        //Update admin password
+        Route::match(['get', 'post'], 'update-admin-password', 'AdminController@updateAdminPassword');
+        //Update admin password
+        Route::match(['get', 'post'], 'update-admin-details', 'AdminController@updateAdminDetails');
+        //Check Admin Password
+        Route::post('check_current_password', 'AdminController@checkAdminPassword');
     });
 });
+
+require __DIR__.'/auth.php';
