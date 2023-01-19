@@ -44,6 +44,15 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::match(['get', 'post'], 'update-admin-details', 'AdminController@updateAdminDetails');
         //Check Admin Password
         Route::post('check_current_password', 'AdminController@checkAdminPassword');
+        //Update Vendor Details
+        Route::match(['get', 'post'], 'update-vendor-details/{slug}', 'AdminController@updateVendorDetails');
+        //View Admins / SubAdmins / Vendors
+        Route::get('admins/{type?}', 'AdminController@admins');
+        //View Vendor Details
+        Route::get('admins/view_vendor_details/{id}', 'AdminController@ViewVendorDetails');
+        //Update Admin Status
+        Route::post('update_admin_status','AdminController@UpdateAdminStatus');
+
     });
 });
 
