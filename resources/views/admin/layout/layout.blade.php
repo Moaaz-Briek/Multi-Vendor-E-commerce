@@ -22,6 +22,10 @@
     <link rel="stylesheet" href="{{url('admin/css/vertical-layout-light/style.css')}}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{url('admin/images/favicon.png')}}"/>
+    <!-- Data Table -->
+    <link rel="stylesheet" href="{{url('admin/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{url('admin/css/dataTables.bootstrap5.min.css')}}"/>
+    <!-- End Data Table -->
 </head>
 <body>
 <div class="container-scroller">
@@ -61,6 +65,8 @@
 <!-- End custom js for this page-->
 {{--Custom Admin Js--}}
 <script src="{{url('admin/js/custom.js')}}"></script>
+{{--Sweet Alert For Delete confirmtion--}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

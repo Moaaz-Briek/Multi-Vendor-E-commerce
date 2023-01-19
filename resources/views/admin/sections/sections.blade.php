@@ -50,10 +50,13 @@
                                                     <i class="mdi mdi-pencil-box" style="font-size: 25px;"></i>
                                                 </a>
 
-                                                <a title="Delete Section" href="{{url('admin/sections/delete-section/'.$section['id'])}}">
+{{--                                                <a class="confirm_delete" identifier="Section" title="Delete Section" href="{{url('admin/sections/delete-section/'.$section['id'])}}">--}}
+{{--                                                    <i class="mdi mdi-file-excel-box" style="font-size: 25px; color: red; margin-left: 10px"></i>--}}
+{{--                                                </a>--}}
+
+                                                <a class="confirm_delete" module="section" module_id="{{$section['id']}}" title="Delete Section" href="javascript:void(0)">
                                                     <i class="mdi mdi-file-excel-box" style="font-size: 25px; color: red; margin-left: 10px"></i>
                                                 </a>
-
                                             </td>
                                         </tr>
                                     @endforeach

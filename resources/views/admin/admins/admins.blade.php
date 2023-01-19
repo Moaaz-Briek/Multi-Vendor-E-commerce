@@ -44,9 +44,15 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @if($admin['type'] == 'vendor')
                                             <a href="{{url('admin/admins/view_vendor_details/'.$admin['id'])}}">
-                                                <i class="mdi mdi-file-document" style="font-size: 25px"></i>
+                                                <i title="See Vendor Details" class="mdi mdi-file-document" style="font-size: 25px"></i>
                                             </a>
+                                            @elseif($admin['type'] == 'admin')
+                                                <a href="{{url('admin/admins/view_admin_details/'.$admin['id'])}}">
+                                                    <i title="See Admin Details" class="mdi mdi-file-document" style=" font-size: 25px; color: red;"></i>
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
