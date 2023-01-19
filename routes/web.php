@@ -53,6 +53,14 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         //Update Admin Status
         Route::post('update_admin_status','AdminController@UpdateAdminStatus');
 
+        //Display sections
+        Route::get('sections', 'SectionController@sections');
+        //Update section status
+        Route::post('sections/update_section_status','SectionController@UpdateSectionStatus');
+        //Edit section status
+        Route::post('sections/update_section/{id}','SectionController@EditSection');
+        //Delete section status
+        Route::get('sections/delete-section/{id}','SectionController@DeleteSection');
     });
 });
 
