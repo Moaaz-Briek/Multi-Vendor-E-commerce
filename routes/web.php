@@ -57,10 +57,12 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::get('sections', 'SectionController@sections');
         //Update section status
         Route::post('sections/update_section_status','SectionController@UpdateSectionStatus');
-        //Edit section status
-        Route::post('sections/update_section/{id}','SectionController@EditSection');
-        //Delete section status
+        //Delete section
         Route::get('sections/delete-section/{id}','SectionController@DeleteSection');
+        //Edit section
+        Route::match(['get', 'post'], 'sections/edit-section/{id?}','SectionController@EditSection');
+        //Add section
+        Route::match( ['get', 'post'],'sections/add-section','SectionController@AddSection' );
     });
 });
 

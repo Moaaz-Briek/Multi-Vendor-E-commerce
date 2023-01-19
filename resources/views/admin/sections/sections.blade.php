@@ -6,8 +6,9 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title"></h4>
+                            <a type="button" class="btn btn-primary float-end" href="{{url('admin/sections/add-section')}}">Add New Section</a>
                             <div class="table-responsive pt-3">
+                            <h4 class="card-title">All Sections:</h4>
                                 @if(Session::has('error_message'))
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>Error : </strong> {{Session::get('error_message')}}
@@ -28,9 +29,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <?php $i=0;?>
                                     @foreach($sections as $section)
                                         <tr>
-                                            <td>{{$section['id']}}</td>
+                                            <td>{{++$i}}</td>
                                             <td>{{$section['name']}}</td>
                                             {{--status--}}
                                             <td>
@@ -46,14 +48,9 @@
                                             </td>
                                             {{--Actions--}}
                                             <td>
-                                                <a title="Edit Section" href="{{url('admin/sections/edit-section/'.$section['id'])}}">
+                                                <a title="Edit Section Name" href="{{url('admin/sections/edit-section/'.$section['id'])}}">
                                                     <i class="mdi mdi-pencil-box" style="font-size: 25px;"></i>
                                                 </a>
-
-{{--                                                <a class="confirm_delete" identifier="Section" title="Delete Section" href="{{url('admin/sections/delete-section/'.$section['id'])}}">--}}
-{{--                                                    <i class="mdi mdi-file-excel-box" style="font-size: 25px; color: red; margin-left: 10px"></i>--}}
-{{--                                                </a>--}}
-
                                                 <a class="confirm_delete" module="section" module_id="{{$section['id']}}" title="Delete Section" href="javascript:void(0)">
                                                     <i class="mdi mdi-file-excel-box" style="font-size: 25px; color: red; margin-left: 10px"></i>
                                                 </a>
