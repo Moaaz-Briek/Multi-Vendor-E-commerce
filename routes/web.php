@@ -53,7 +53,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         //Update Admin Status
         Route::post('update_admin_status','AdminController@UpdateAdminStatus');
 
-        //Display sections
+        //Display Sections
         Route::get('sections', 'SectionController@sections');
         //Update section status
         Route::post('sections/update_section_status','SectionController@UpdateSectionStatus');
@@ -63,6 +63,15 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::match(['get', 'post'], 'sections/edit-section/{id?}','SectionController@EditSection');
         //Add section
         Route::match( ['get', 'post'],'sections/add-section','SectionController@AddSection' );
+
+        //Display Categories
+        Route::get('categories', 'CategoryController@categories');
+        //Update category status
+        Route::post('categories/update_category_status','CategoryController@UpdateCategoryStatus');
+        //Add category
+        Route::match( ['get', 'post'],'categories/add-category','CategoryController@AddCategory');
+        //Get Section Categories
+        Route::post('categories/get-section-category', 'CategoryController@GetSectionCategory');
     });
 });
 

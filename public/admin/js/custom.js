@@ -1,6 +1,7 @@
     $(document).ready(function (){
     //Data Table Initialization
     $('#sections').DataTable();
+    $('#categories').DataTable();
     //Remove active class from nav items
     $(".nav-item").removeClass("active");
     $(".nav-link").removeClass("active");
@@ -50,7 +51,7 @@
        });
     });
 
-    //Update Admin Status
+    //Update section Status
     $(document).on("click", '.updateSectionStatus', function (){
         var status = $(this).children("i").attr("status");
         var section_id = $(this).attr("section-id");
@@ -105,5 +106,51 @@
                     window.location = "/admin/sections/delete-"+module+"/"+module_id;
                 }
             })
+        });
+
+        //Update category Status
+        $(document).on("click", '.updateCategoryStatus', function (){
+            var status = $(this).children("i").attr("status");
+            var category_id = $(this).attr("category-id");
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'post',
+                url:"/admin/categories/update_category_status",
+                data:{status:status, category_id:category_id},
+                success:function(resp){
+                    if(resp['status']===0){
+                        $("#category-"+category_id).html("<i title='Inactive' style='font-size: 25px;' class='mdi mdi-bookmark-outline' status='Inactive'></i>")
+                    }else if(resp['status']===1){
+                        $("#category-"+category_id).html("<i title='Active' style='font-size: 25px;' class='mdi mdi-bookmark-check' status='Active'></i>")
+                    }
+                },error:function (){
+                    alert("Error");
+                }
+            });
+        });
+
+        //Load Section Categories
+        $(document).on("change", '#section_name', function (){
+            var SectionId = $(this).val();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/admin/categories/get-section-category",
+                type: "post",
+                data:{section_id: SectionId},
+                success: function(resp) {
+                    $('select[name="parent_id"]').empty();
+                    $(".SectionCategories").append('<option value="0">Root</option>');
+                    if($.trim(resp)){
+                        $.each(resp, function(key, value) {
+                            $(".SectionCategories").append('<option value="' + value + '">' + key + '</option>');
+                        });
+                    }else{
+                    }
+                },
+            });
         });
 });
