@@ -90,13 +90,78 @@ class CategoryController extends Controller
 
         }
     }
+    //Get Section Categories
     public function GetSectionCategory(Request $request){
         if($request->ajax())
         {
             $data = $request->all();
-            $categ = Category::with('Section')->where('section_id', $data['section_id']);
-            $categ = $categ->where( 'parent_id', 0)->pluck('id','category_name');
+            $categ = Category::with('Section')->where(['section_id' => $data['section_id'], 'parent_id' => 0])->pluck('id','category_name');
             return response()->json($categ);
         }
+    }
+
+    //Edit Category Information
+    public function EditCategory(Request $request,$id=null){
+            if($request->isMethod('post')){
+                $data = $request->all();
+//                dd($data);
+                //Upload Admin Image
+                if($request->hasFile('category_image')){
+                    $image_tmp = $request->file('category_image');
+                    if($image_tmp->isValid()){
+                        //Get Image Extension
+                        $extension = $image_tmp->getClientOriginalExtension();
+                        //Generate New Image Name
+                        $imageName = rand(111,9999).'.'.$extension;
+                        $imagePath = 'front/images/category_images/'.$imageName;
+                        //Upload The Image
+                        Image::make($image_tmp)->save($imagePath);
+                    }
+                }
+                else if(!empty($data['current_category_image'])){
+                    $imageName = $data['current_category_image'];
+                }
+                else{
+                    $imageName = '';
+                }
+
+//            $rules = [
+//                'section_name' => 'required|regex:/^[\pL\s\-]+$/u',
+//            ];
+//
+//            $customMessages = [
+//                'section_name.required' => 'Section Name is Required',
+//                'section_name.regex' => 'Valid Section Name is Required',
+//            ];
+//            $this->validate($request, $rules, $customMessages);
+
+            Category::where('id', $data['id'])->update([
+                'category_name' => $data['category_name'],
+                'section_id' => $data['section_id'],
+                'parent_id' => $data['parent_id'],
+                'category_discount' => $data['category_discount'],
+                'url' => $data['url'],
+                'meta_title' => $data['meta_title'],
+                'meta_description' => $data['meta_description'],
+                'meta_keywords' => $data['meta_keywords'],
+                'status' => $data['status'],
+                'description' => $data['description'],
+                'category_image' => $imageName,
+            ]);
+            return redirect('admin/categories')->with('success_message', 'Category has been Updated Succeessfully!');
+        }
+        else{
+            $sections = Section::get()->toArray();
+            $category = Category::with('Section', 'ParentCategory')->where('id', $id)->get()->first()->toArray();
+//            dd($category);
+            return view('admin.categories.edit_category')->with(compact('category', 'sections'));
+        }
+    }
+
+    //Delete Category
+    public function DeleteCategory($id){
+        Category::where('id',$id)->delete();
+        $message = 'Category has been deleted successfully!';
+        return redirect()->back()->with('success_message',$message);
     }
 }

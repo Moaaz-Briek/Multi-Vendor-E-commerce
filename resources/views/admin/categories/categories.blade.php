@@ -60,7 +60,7 @@
                                             </td>
                                             {{--Actions--}}
                                             <td>
-                                                <a title="Edit Category Name" href="{{url('admin/sections/edit-section/'.$category['id'])}}">
+                                                <a title="Edit Category Information" href="{{url('admin/categories/edit-category/'.$category['id'])}}">
                                                     <i class="mdi mdi-pencil-box" style="font-size: 25px;"></i>
                                                 </a>
                                                 <a class="confirm_delete" module="category" module_id="{{$category['id']}}" title="Delete Section" href="javascript:void(0)">

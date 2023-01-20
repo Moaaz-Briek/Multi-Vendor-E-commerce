@@ -103,6 +103,9 @@
                         'Your file has been deleted.',
                         'success'
                     )
+                    if(module === 'category'){
+                        window.location = "/admin/categories/delete-"+module+"/"+module_id;
+                    }
                     window.location = "/admin/sections/delete-"+module+"/"+module_id;
                 }
             })
@@ -132,7 +135,7 @@
         });
 
         //Load Section Categories
-        $(document).on("change", '#section_name', function (){
+        $(document).on("click", '#section_name', function (){
             var SectionId = $(this).val();
             $.ajax({
                 headers: {

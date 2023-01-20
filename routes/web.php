@@ -72,6 +72,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::match( ['get', 'post'],'categories/add-category','CategoryController@AddCategory');
         //Get Section Categories
         Route::post('categories/get-section-category', 'CategoryController@GetSectionCategory');
+        //Delete category
+        Route::get('categories/delete-category/{id}','CategoryController@DeleteCategory');
+        //Edit category
+        Route::match(['get', 'post'], 'categories/edit-category/{id?}','CategoryController@EditCategory');
     });
 });
 
