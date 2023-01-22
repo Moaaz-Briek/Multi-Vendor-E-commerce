@@ -8,6 +8,7 @@ use App\Models\Country;
 use App\Models\Vendor;
 use App\Models\VendorsBankDetail;
 use App\Models\VendorsBusinessDetail;
+use App\Traits\CommonController;
 use Illuminate\Container\RewindableGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ use Illuminate\Testing\Fluent\Concerns\Has;
 use Intervention\Image\Facades\Image;
 class AdminController extends Controller
 {
+    use CommonController;
     public function dashboard()
     {
         Session::put('page','dashboard');
@@ -366,19 +368,8 @@ class AdminController extends Controller
     }
 
     //We use this function with the custom.js file to Update admin status
-    public function UpdateAdminStatus(Request $request){
-        if($request->ajax())
-        {
-            $data = $request->all();
-            if($data['status'] == 'Inactive'){
-                $status = 1;
-            }
-            else{
-                $status = 0;
-            }
-//            echo "<pre>"; print_r($data); die;
-            Admin::where('id', $data['admin_id'])->update(['status' => $status,]);
-            return response()->json(['status'=>$status, 'admin-id'=>$data['admin_id']]);
-        }
+    public function UpdateAdminStatus(Request $request, Admin $admin){
+        $arr = $this->UpdateStatus($request, $admin);
+        return response()->json($arr);
     }
 }

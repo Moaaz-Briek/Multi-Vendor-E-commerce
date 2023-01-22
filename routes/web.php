@@ -78,6 +78,29 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::get('categories/delete-category-image/{id}','CategoryController@DeleteCategoryImage');
         //Edit category
         Route::match(['get', 'post'], 'categories/edit-category/{id?}','CategoryController@EditCategory');
+
+        //Display Brands
+        Route::get('brands', 'BrandController@brands');
+        //Update section status
+        Route::post('brands/update_brand_status','BrandController@UpdateBrandStatus');
+        //Delete brands
+        Route::get('brands/delete-brand/{id}','BrandController@DeleteBrand');
+        //Edit brands
+        Route::match(['get', 'post'], 'brands/edit-brand/{id?}','BrandController@EditBrand');
+        //Add brands
+        Route::match( ['get', 'post'],'brands/add-brand','BrandController@AddBrand' );
+
+        //Display Products
+        Route::get('products', 'ProductController@products');
+        //Update section status
+        Route::post('products/update_product_status','ProductController@UpdateProductStatus');
+        //Delete products
+        Route::get('products/delete-product/{id}','ProductController@DeleteProduct');
+        //Edit products
+        Route::match(['get', 'post'], 'products/edit-product/{id?}','ProductController@EditProduct');
+        //Add products
+        Route::match( ['get', 'post'],'products/add-product','ProductController@AddProduct' );
+
     });
 });
 

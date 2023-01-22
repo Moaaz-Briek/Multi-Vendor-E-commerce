@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('vendors_business_details', function (Blueprint $table) {
             $table->id();
-            $table->integer('nendor_id');
+            $table->integer('vendor_id');
             $table->string('shop_name');
             $table->string('shop_address');
             $table->string('shop_city');
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('shop_pincode');
             $table->string('shop_mobile');
             $table->string('shop_website');
+            $table->string('shop_email');
             $table->string('address_prof');
             $table->string('address_prof_image');
             $table->string('business_license_number');

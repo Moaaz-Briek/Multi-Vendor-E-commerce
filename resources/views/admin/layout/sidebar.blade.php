@@ -138,7 +138,7 @@
         </li>
         <!-- Catalogue Tabs -->
         <li class="nav-item">
-                <a @if(in_array(Session::get('page'), array('sections','products', 'categories')))
+                <a @if(in_array(Session::get('page'), array('sections','products', 'brands', 'categories')))
                        style="background: #4b49ac !important;color: #fff!important;"
                    @endif
                     class="nav-link" data-toggle="collapse" href="#ui-catalogue" aria-expanded="false" aria-controls="ui-catalogue">
@@ -160,6 +160,12 @@
                                                      style="background: #fff !important;color: #4b49ac!important;"
                                                  @endif
                                 class="nav-link" href="{{url('admin/categories')}}">Categories</a></li>
+                        <li class="nav-item"> <a @if(Session::get('page') === 'brands')
+                                                     style="background: #4b49ac !important;color: #fff!important;"
+                                                 @else
+                                                     style="background: #fff !important;color: #4b49ac!important;"
+                                                 @endif
+                                                 class="nav-link" href="{{url('admin/brands')}}">Brands</a></li>
                         <li class="nav-item"> <a @if(Session::get('page') === 'products')
                                                      style="background: #4b49ac !important;color: #fff!important;"
                                                  @else

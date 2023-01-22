@@ -18,6 +18,7 @@ class SectionController extends Controller
     }
 
     //Update Section status
+
     public function UpdateSectionStatus(Request $request){
         if($request->ajax())
         {
@@ -29,8 +30,8 @@ class SectionController extends Controller
                 $status = 0;
             }
 //            echo "<pre>"; print_r($data); die;
-            Section::where('id', $data['section_id'])->update(['status' => $status,]);
-            return response()->json(['status'=>$status, 'section_id'=>$data['section_id']]);
+            Section::where('id', $data['module_id'])->update(['status' => $status,]);
+            return response()->json(['status'=>$status, 'module_id'=>$data['module_id']]);
         }
     }
 

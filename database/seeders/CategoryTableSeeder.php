@@ -43,7 +43,7 @@ class CategoryTableSeeder extends Seeder
         ],[    'id' => '3',
             'parent_id' => '0',
             'section_id' => '1',
-            'category_name' => 'فوط 4*1',
+            'category_name' => 'فوط كبير',
             'category_image' => '',
             'category_discount' => 0,
             'description' => '',

@@ -16,7 +16,7 @@ class VendorsBankDetailsTableSeeder extends Seeder
     {
         $vendorRecords = [
             'vendor_id' => 1,
-            'account_holder_name' => 'Amen Briek',
+            'account_holder_name' => 'Wafaa Briek',
             'account_number' => '388961416185611655561',
             'bank_name' => 'Ahly-bank',
             'bank_ifsc_code' => '454545',

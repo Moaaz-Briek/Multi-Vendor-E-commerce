@@ -34,11 +34,11 @@
                                         </td>
                                         <td>
                                             @if($admin['status'] == 1)
-                                                <a class="updateAdminStatus" id="admin-{{$admin['id']}}" admin-id="{{$admin['id']}}" href="javascript:void(0)">
+                                                <a class="updateStatus" module="admin" id="module-{{$admin['id']}}" module-id="{{$admin['id']}}" href="javascript:void(0)">
                                                     <i style="font-size: 25px" class="mdi mdi-bookmark-check" status="Active"></i>
                                                 </a>
                                             @else
-                                                <a class="updateAdminStatus" id="admin-{{$admin['id']}}" admin-id="{{$admin['id']}}" href="javascript:void(0)">
+                                                <a class="updateStatus" module="admin" id="module-{{$admin['id']}}" module-id="{{$admin['id']}}" href="javascript:void(0)">
                                                     <i style="font-size: 25px" class="mdi mdi-bookmark-outline" status="Inactive"></i>
                                                 </a>
                                             @endif

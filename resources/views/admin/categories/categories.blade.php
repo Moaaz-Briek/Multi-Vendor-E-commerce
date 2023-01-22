@@ -49,11 +49,11 @@
                                             {{--status--}}
                                             <td>
                                                 @if($category['status'] == 1)
-                                                    <a class="updateCategoryStatus" id="category-{{$category['id']}}" category-id="{{$category['id']}}" href="javascript:void(0)">
+                                                    <a class="updateStatus" module="category" id="module-{{$category['id']}}" module-id="{{$category['id']}}" href="javascript:void(0)">
                                                         <i title="Active" style="font-size: 25px" class="mdi mdi-bookmark-check" status="Active"></i>
                                                     </a>
                                                 @else
-                                                    <a class="updateCategoryStatus" id="category-{{$category['id']}}" category-id="{{$category['id']}}" href="javascript:void(0)">
+                                                    <a class="updateStatus" module="category" id="module-{{$category['id']}}" module-id="{{$category['id']}}" href="javascript:void(0)">
                                                         <i title="Inactive" style="font-size: 25px" class="mdi mdi-bookmark-outline" status="Inactive"></i>
                                                     </a>
                                                 @endif

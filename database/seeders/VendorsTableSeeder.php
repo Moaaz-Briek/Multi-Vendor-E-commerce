@@ -16,16 +16,7 @@ class VendorsTableSeeder extends Seeder
     public function run()
     {
         $vendorRecords = [
-          'id' => 1,
-          'name' => 'Amen',
-          'address' => 'Younes-Street',
-          'city' => 'Shebien',
-          'state' => 'Qalubia',
-          'country' => 'Egypt',
-          'pincode' => '13762',
-          'mobile' => '01014980603',
-          'email' => 'amen@briek.com',
-            'status' => 0,
+          'id' => 1, 'name' => 'Wafaa', 'address' => 'Younes-Street', 'city' => 'Shebien', 'state' => 'Qalubia', 'country' => 'Egypt', 'pincode' => '13762', 'mobile' => '01014980603', 'email' => 'vendor@briek.com', 'status' => 1,
         ];
         Vendor::insert($vendorRecords);
 

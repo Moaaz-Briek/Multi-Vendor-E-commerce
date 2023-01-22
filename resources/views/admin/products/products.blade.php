@@ -6,9 +6,9 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <a type="button" class="btn btn-primary float-end" href="{{url('admin/sections/add-section')}}">Add New Section</a>
+                            <a type="button" class="btn btn-primary float-end" href="{{url('admin/categories/add-product')}}">Add New Product</a>
                             <div class="table-responsive pt-3">
-                            <h4 class="card-title">All Sections:</h4>
+                                <h4 class="card-title">All Products:</h4>
                                 @if(Session::has('error_message'))
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>Error : </strong> {{Session::get('error_message')}}
@@ -19,39 +19,43 @@
                                         <strong> {{Session::get('success_message')}} </strong>
                                     </div>
                                 @endif
-                                <table id="sections" class="table table-bordered ">
+                                <table id="categories" class="table table-striped table-bordered ">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
+                                        <th>Product Name</th>
+                                        <th>Product Code</th>
+                                        <th>Product Color</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php $i=0;?>
-                                    @foreach($sections as $section)
+                                    @foreach($products as $product)
                                         <tr>
                                             <td>{{++$i}}</td>
-                                            <td>{{$section['name']}}</td>
+                                            <td>{{$product['product_name']}}</td>
+                                            <td>{{$product['product_code']}}</td>
+                                            <td>{{$product['product_color']}}</td>
                                             {{--status--}}
                                             <td>
-                                                @if($section['status'] == 1)
-                                                    <a class="updateStatus" module="section" id="module-{{$section['id']}}" module-id="{{$section['id']}}" href="javascript:void(0)">
-                                                        <i style="font-size: 25px" class="mdi mdi-bookmark-check" status="Active"></i>
+                                                @if($product['status'] == 1)
+                                                    <a class="updateStatus" module="product" id="module-{{$product['id']}}" module-id="{{$product['id']}}" href="javascript:void(0)">
+                                                        <i title="Active" style="font-size: 25px" class="mdi mdi-bookmark-check" status="Active"></i>
                                                     </a>
                                                 @else
-                                                    <a class="updateStatus" module="section" id="module-{{$section['id']}}" module-id="{{$section['id']}}" href="javascript:void(0)">
-                                                        <i style="font-size: 25px" class="mdi mdi-bookmark-outline" status="Inactive"></i>
+                                                    <a class="updateStatus" module="product" id="module-{{$product['id']}}" module-id="{{$product['id']}}" href="javascript:void(0)">
+                                                        <i title="Inactive" style="font-size: 25px" class="mdi mdi-bookmark-outline" status="Inactive"></i>
                                                     </a>
                                                 @endif
                                             </td>
                                             {{--Actions--}}
                                             <td>
-                                                <a title="Edit Section Name" href="{{url('admin/sections/edit-section/'.$section['id'])}}">
+                                                <a title="Edit Product Information" href="{{url('admin/products/edit-product/'.$product['id'])}}">
                                                     <i class="mdi mdi-pencil-box" style="font-size: 25px;"></i>
                                                 </a>
-                                                <a class="confirm_delete" module="section" module_id="{{$section['id']}}" title="Delete Section" href="javascript:void(0)">
+                                                <a class="confirm_delete" module="product" module_id="{{$product['id']}}" title="Delete Product" href="javascript:void(0)">
                                                     <i class="mdi mdi-file-excel-box" style="font-size: 25px; color: red; margin-left: 10px"></i>
                                                 </a>
                                             </td>

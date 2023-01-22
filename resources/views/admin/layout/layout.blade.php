@@ -23,8 +23,8 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="{{url('admin/images/favicon.png')}}"/>
     <!-- Data Table -->
-    <link rel="stylesheet" href="{{url('admin/css/dataTables.bootstrap5.min.css')}}"/>
     <link rel="stylesheet" href="{{url('admin/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{url('admin/css/dataTables.bootstrap5.min.css')}}"/>
     <!-- End Data Table -->
 </head>
 <body>
@@ -58,6 +58,9 @@
 <script src="{{url('admin/js/template.js')}}"></script>
 <script src="{{url('admin/js/settings.js')}}"></script>
 <script src="{{url('admin/js/todolist.js')}}"></script>
+{{--<link rel="stylesheet" href="{{url('admin/js/jquery.dataTables.min.js')}}">--}}
+{{--<link rel="stylesheet" href="{{url('admin/js/select.dataTables.min.css')}}">--}}
+{{--<link rel="stylesheet" href="{{url('admin/js/jquery-3.5.1.js')}}">--}}
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script src="{{url('admin/js/dashboard.js')}}"></script>
