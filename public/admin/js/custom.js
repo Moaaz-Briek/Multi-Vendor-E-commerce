@@ -106,7 +106,13 @@
                     if(module === 'category'){
                         window.location = "/admin/categories/delete-"+module+"/"+module_id;
                     }
-                    window.location = "/admin/sections/delete-"+module+"/"+module_id;
+                    else if(module === 'section')
+                    {
+                        window.location = "/admin/sections/delete-"+module+"/"+module_id;
+                    }
+                    else if(module === 'category-image'){
+                        window.location = "/admin/categories/delete-"+module+"/"+module_id;
+                    }
                 }
             })
         });
@@ -125,7 +131,7 @@
                 success:function(resp){
                     if(resp['status']===0){
                         $("#category-"+category_id).html("<i title='Inactive' style='font-size: 25px;' class='mdi mdi-bookmark-outline' status='Inactive'></i>")
-                    }else if(resp['status']===1){
+                    }else  if(resp['status']===1){
                         $("#category-"+category_id).html("<i title='Active' style='font-size: 25px;' class='mdi mdi-bookmark-check' status='Active'></i>")
                     }
                 },error:function (){

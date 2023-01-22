@@ -113,6 +113,10 @@
                                         <a target="_blank" href="{{url('front/images/category_images/'.$category['category_image'])}}">
                                             View Image
                                         </a>
+                                        &nbsp;|&nbsp;
+                                        <a href="javascript:void(0)" class="confirm_delete" module="category-image" module_id="{{$category['id']}}">
+                                            Delete Image
+                                        </a>
                                     @endif
                                     <input type="hidden" name="current_category_image" value="{{$category['category_image']}}">
                                 </div>

@@ -125,15 +125,37 @@ class CategoryController extends Controller
                     $imageName = '';
                 }
 
-//            $rules = [
-//                'section_name' => 'required|regex:/^[\pL\s\-]+$/u',
-//            ];
-//
-//            $customMessages = [
-//                'section_name.required' => 'Section Name is Required',
-//                'section_name.regex' => 'Valid Section Name is Required',
-//            ];
-//            $this->validate($request, $rules, $customMessages);
+            $rules = [
+                'category_name' => 'required|regex:/^[\pL\s\-]+$/u',
+                'meta_description' => 'required|regex:/^[\pL\s\-]+$/u',
+                'meta_keywords' => 'required|regex:/^[\pL\s\-]+$/u',
+                'description' => 'required|regex:/^[\pL\s\-]+$/u',
+                'section_id' => 'required',
+                'parent_id' => 'required',
+                'category_discount' => 'required',
+                'url' => 'required',
+                'status' => 'required',
+                'category_image' => 'required',
+
+            ];
+
+            $customMessages = [
+                'category_name.required' => 'Category Name is Required',
+                'category_name.regex' => 'Valid Category Name is Required',
+                'meta_description.required' => 'Meta Description Name is Required',
+                'meta_description.regex' => 'Valid Meta Description Name is Required',
+                'meta_keywords.required' => 'Meta Keyword Name is Required',
+                'meta_keywords.regex' => 'Valid Meta Keyword Name is Required',
+                'description.required' => 'Description Name is Required',
+                'description.regex' => 'Valid Description Name is Required',
+                'section_id.required' => 'Section Name is Required',
+                'parent_id.required' => 'Parent Category Name is Required',
+                'category_discount.required' => 'Category Discount is Required',
+                'url.required' => 'Url Name is Required',
+                'status.required' => 'Status is Required',
+                'category_image.required' => 'Category Image is Required',
+            ];
+            $this->validate($request, $rules, $customMessages);
 
             Category::where('id', $data['id'])->update([
                 'category_name' => $data['category_name'],
@@ -164,4 +186,20 @@ class CategoryController extends Controller
         $message = 'Category has been deleted successfully!';
         return redirect()->back()->with('success_message',$message);
     }
+    public function DeleteCategoryImage($id){
+        $category_image = Category::select('category_image')->where('id',$id)->first();
+        $category_image_path = 'front/images/category_images/';
+        //Delete from domain files
+        if(file_exists($category_image_path.$category_image->category_image)){
+            unlink($category_image_path.$category_image->category_image);
+        }
+        //Delete from database
+        Category::where('id',$id)->update([
+            'category_image' => '',
+        ]);
+        $message = 'Category Image has been deleted successfully!';
+        return redirect()->back()->with('success_message',$message);
+    }
+
+
 }
