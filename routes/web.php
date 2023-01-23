@@ -50,6 +50,8 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::get('admins/{type?}', 'AdminController@admins');
         //View Vendor Details
         Route::get('admins/view_vendor_details/{id}', 'AdminController@ViewVendorDetails');
+        //View Admin Details
+        Route::get('admins/view_admin_details/{id}', 'AdminController@ViewAdminDetails');
         //Update Admin Status
         Route::post('update_admin_status','AdminController@UpdateAdminStatus');
 
@@ -100,6 +102,8 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::match(['get', 'post'], 'products/edit-product/{id?}','ProductController@EditProduct');
         //Add products
         Route::match( ['get', 'post'],'products/add-product','ProductController@AddProduct' );
+        //Get Sub Categories
+        Route::post('products/get-sub-categories', 'ProductController@GetSubCategory');
 
     });
 });

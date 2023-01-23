@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="section_name">Select Section Name</label>
-                                    <select class="form-control" id="section_name" name="section_id" required placeholder="Enter Section Name">
+                                    <select class="form-control" id="section_categories" name="section_id" required placeholder="Enter Section Name">
                                         @foreach($sections as $section)
                                             @if($category['section_id'] != $section['id'])
                                                 <option value="{{$section['id']}}">{{$section['name']}}</option>

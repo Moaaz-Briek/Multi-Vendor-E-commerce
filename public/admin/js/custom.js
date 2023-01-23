@@ -34,14 +34,16 @@
         var module = $(this).attr('module');
         var status = $(this).children("i").attr("status");
         var module_id = $(this).attr("module-id");
-        if (module === 'section') {
-            var url = "/admin/sections/update_section_status";
+        if(module === 'admin'){
+            var url = "/admin/update_admin_status";
+        } else if(module === 'section') {
+            url = "/admin/sections/update_section_status";
         } else if (module === 'brand') {
             url = "/admin/brands/update_brand_status";
         } else if (module === 'category') {
             url = "/admin/brands/update_brand_status";
-        } else if(module === 'admin'){
-            url = "/admin/update_admin_status";
+        } else if(module === 'product'){
+            url = "/admin/products/update_product_status";
         }
         $.ajax({
             headers: {
@@ -104,6 +106,9 @@
                         case 'brand':
                             window.location = "/admin/brands/delete-"+module+"/"+module_id;
                             break;
+                        case 'product':
+                            window.location = "/admin/products/delete-"+module+"/"+module_id;
+                            break;
                     }
                 }
             })
@@ -133,8 +138,12 @@
         });
 
         //Load Section Categories
-        $(document).on("click", '#section_name', function (){
+        $(document).on("click", '#section_categories', function (){
             var SectionId = $(this).val();
+            //Check if it's a product addition or editting category, if it's a product we don't need root, but if it's a category we need the root
+            var Id = $(this).attr('module');
+            var Root = (Id === 'product');
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -143,11 +152,35 @@
                 type: "post",
                 data:{section_id: SectionId},
                 success: function(resp) {
-                    $('select[name="parent_id"]').empty();
-                    $(".SectionCategories").append('<option value="0">Root</option>');
+                    $('#category').empty();
+                    // if it's a product we don't need root, but if it's a category we need the root
+                    if(!Root){
+                        $("#category").append('<option value="0">Root</option>');
+                    }
                     if($.trim(resp)){
                         $.each(resp, function(key, value) {
-                            $(".SectionCategories").append('<option value="' + value + '">' + key + '</option>');
+                            $("#category").append('<option value="' + value + '">' + key + '</option>');
+                        });
+                    }else{
+                    }
+                },
+            });
+        });
+
+        $(document).on("click", '#category', function (){
+            var CategoryId = $(this).val();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/admin/products/get-sub-categories",
+                type: "post",
+                data:{category_id: CategoryId},
+                success: function(resp) {
+                    $('#sub-category').empty();
+                    if($.trim(resp)){
+                        $.each(resp, function(key, value) {
+                            $("#sub-category").append('<option value="' + value + '">' + key + '</option>');
                         });
                     }else{
                     }

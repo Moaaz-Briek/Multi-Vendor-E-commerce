@@ -6,7 +6,7 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <a type="button" class="btn btn-primary float-end" href="{{url('admin/categories/add-product')}}">Add New Product</a>
+                            <a type="button" class="btn btn-primary float-end" href="{{url('admin/products/add-product')}}">Add New Product</a>
                             <div class="table-responsive pt-3">
                                 <h4 class="card-title">All Products:</h4>
                                 @if(Session::has('error_message'))
@@ -19,13 +19,18 @@
                                         <strong> {{Session::get('success_message')}} </strong>
                                     </div>
                                 @endif
-                                <table id="categories" class="table table-striped table-bordered ">
+                                <table id="categories" class="table table-striped table-bordered text-center">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Product Name</th>
                                         <th>Product Code</th>
                                         <th>Product Color</th>
+                                        <th>Section</th>
+                                        <th>Category</th>
+                                        <th>Brand</th>
+                                        <th>Added By</th>
+                                        <th>Vendor name</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -38,9 +43,19 @@
                                             <td>{{$product['product_name']}}</td>
                                             <td>{{$product['product_code']}}</td>
                                             <td>{{$product['product_color']}}</td>
+                                            <td>{{$product['section']['name']}}</td>
+                                            <td>{{$product['category']['category_name']}}</td>
+                                            <td>{{$product['brand']['name']}}</td>
+                                            <td><a href="{{url('admin/admins/view_admin_details/'.$product['admin']['id'])}}" title="Show Details"> {{$product['admin'] !== null ? ucfirst($product['admin']['type']) : '-' }} </a></td>
+
+                                            <td><a
+                                                    href="{{$product['vendor'] !== null ? url('admin/admins/view_vendor_details/'.$product['vendor']['id']) : "" }}" title="Show Details">
+                                                    {{$product['vendor'] !== null ? ucfirst($product['vendor']['name']) : "" }}
+                                                </a></td>
+
                                             {{--status--}}
                                             <td>
-                                                @if($product['status'] == 1)
+                                                @if($product['product_status'] == 1)
                                                     <a class="updateStatus" module="product" id="module-{{$product['id']}}" module-id="{{$product['id']}}" href="javascript:void(0)">
                                                         <i title="Active" style="font-size: 25px" class="mdi mdi-bookmark-check" status="Active"></i>
                                                     </a>

@@ -367,6 +367,13 @@ class AdminController extends Controller
         return view('admin.admins.view_vendor_details')->with(compact('VendorDetails'));
     }
 
+    public function ViewAdminDetails($id)
+    {
+        Session::put('page', 'admins');
+        $admin = Admin::where('id', $id)->first()->toArray();
+        return view('admin.admins.view_admin_details')->with(compact('admin'));
+    }
+
     //We use this function with the custom.js file to Update admin status
     public function UpdateAdminStatus(Request $request, Admin $admin){
         $arr = $this->UpdateStatus($request, $admin);

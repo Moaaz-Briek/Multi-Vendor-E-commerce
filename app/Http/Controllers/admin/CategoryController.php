@@ -48,7 +48,7 @@ class CategoryController extends Controller
                 $imageName = '';
             }
             $rules = [
-                'category_name' => 'required|regex:/^[\pL\s\-]+$/u',
+                'category_name' => '',
             ];
 
             $customMessages = [

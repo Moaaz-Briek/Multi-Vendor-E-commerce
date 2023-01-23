@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Section extends Model
 {
     use HasFactory;
-    public function Category(){
-//        $this->hasMany(Category::class, '');
+    public function Categories(){
+        return $this->hasMany(Category::class, 'section_id')->where(['parent_id'=>0, 'status'=>1])->with('SubCategory');
     }
 }
