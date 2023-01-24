@@ -33,7 +33,7 @@
                     <div class="col-12  grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <form class="forms-sample" action="{{url('admin/products/add-product')}}" autocomplete="" method="post" enctype="multipart/form-data">
+                                <form class="forms-sample" action="{{url('admin/products/add-product')}}" autocomplete="on" method="post" enctype="multipart/form-data">
                                 @csrf
                                     <div class="form-group">
                                         <label for="select_section">Select Section</label>
@@ -50,7 +50,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="sub_category_id">Select Sub Category</label>
-                                        <select class="form-control" id="sub-category" name="sub_category_id"></select>
+                                        <select class="form-control" id="sub-category" name="sub_category_id">
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="brand_id">Brand Name</label>
@@ -124,13 +125,13 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">Product Image</label>
-                                        <input type="file" class="form-control form-control-lg" id="prodcut_image" name="prodcut_image">
+                                        <label class="form-label">Product Image (Recommended Size: 1000*1000)</label>
+                                        <input type="file" class="form-control form-control-lg" id="product_image" name="product_image">
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="form-label">Product Video</label>
-                                        <input type="file" class="form-control form-control-lg" id="prodcut_video" name="prodcut_video">
+                                        <label class="form-label">Product Video (Recommended Size: Less Than 2 MB)</label>
+                                        <input type="file" class="form-control form-control-lg" id="product_video" name="product_video">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary mr-2">Submit</button>

@@ -94,16 +94,25 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
 
         //Display Products
         Route::get('products', 'ProductController@products');
-        //Update section status
+        //Add products
+        Route::match( ['get', 'post'],'products/add-product','ProductController@AddProduct' );
+        //Get Sub Categories
+        Route::post('products/get-sub-categories', 'ProductController@GetSubCategory');
+        //Update product status
         Route::post('products/update_product_status','ProductController@UpdateProductStatus');
         //Delete products
         Route::get('products/delete-product/{id}','ProductController@DeleteProduct');
         //Edit products
         Route::match(['get', 'post'], 'products/edit-product/{id?}','ProductController@EditProduct');
-        //Add products
-        Route::match( ['get', 'post'],'products/add-product','ProductController@AddProduct' );
-        //Get Sub Categories
-        Route::post('products/get-sub-categories', 'ProductController@GetSubCategory');
+
+        //Add/Display product Attribute
+        Route::match( ['get', 'post'],'products/add-attribute/{id?}','ProductController@AddAttribute' );
+        //Update product Attribute Status
+        Route::post('products/product_attributes/update_attribute_status','ProductController@UpdateProductAttributeStatus');
+        //Delete product attrribute
+        Route::get('products/product_attributes/delete-attribute/{id}','ProductController@DeleteProductAttribute');
+        //Update product values
+        Route::post('products/product_attributes/update_attribute_value','ProductController@UpdateProductAttributeValues');
 
     });
 });

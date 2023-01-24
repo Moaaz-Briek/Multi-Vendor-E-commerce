@@ -19,13 +19,14 @@
                                         <strong> {{Session::get('success_message')}} </strong>
                                     </div>
                                 @endif
-                                <table id="categories" class="table table-striped table-bordered text-center">
+                                <table id="categories" class="table table-striped table-bordered table-responsive text-center">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Product Name</th>
                                         <th>Product Code</th>
                                         <th>Product Color</th>
+                                        <th>Product Image</th>
                                         <th>Section</th>
                                         <th>Category</th>
                                         <th>Brand</th>
@@ -43,8 +44,13 @@
                                             <td>{{$product['product_name']}}</td>
                                             <td>{{$product['product_code']}}</td>
                                             <td>{{$product['product_color']}}</td>
+                                            <td>
+                                                <img
+                                                    src="{{$product['product_image'] ? asset('front/images/product_images/small/' . $product['product_image']) : asset('front/images/product_images/small/250x250.jpg')}}"
+                                                >
+                                            </td>
                                             <td>{{$product['section']['name']}}</td>
-                                            <td>{{$product['category']['category_name']}}</td>
+                                            <td>{{($product['category'] !== null ? $product['category']['category_name'] : '-')}}</td>
                                             <td>{{$product['brand']['name']}}</td>
                                             <td><a href="{{url('admin/admins/view_admin_details/'.$product['admin']['id'])}}" title="Show Details"> {{$product['admin'] !== null ? ucfirst($product['admin']['type']) : '-' }} </a></td>
 
@@ -72,6 +78,9 @@
                                                 </a>
                                                 <a class="confirm_delete" module="product" module_id="{{$product['id']}}" title="Delete Product" href="javascript:void(0)">
                                                     <i class="mdi mdi-file-excel-box" style="font-size: 25px; color: red; margin-left: 10px"></i>
+                                                </a><br>
+                                                <a title="Add Product Attribute" href="{{url('admin/products/add-attribute/'.$product['id'])}}">
+                                                    <i class="mdi mdi-plus-box" style="font-size: 25px; color: #08ea79; margin-left: 10px"></i>
                                                 </a>
                                             </td>
                                         </tr>
