@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Product_Attribute;
+use App\Models\Product_Image;
 use App\Models\Section;
 use App\Traits\CommonController;
 use Illuminate\Http\Request;
@@ -29,19 +30,20 @@ class ProductController extends Controller
         ])->get()->toArray();
         return view('admin.products.products')->with(compact('products'));
     }
-
     //Update Product status
     public function UpdateProductStatus(Request $request, Product $product){
+        Session::put('page','products');
         $arr = $this->UpdateStatus($request, $product);
         return response()->json($arr);
     }
     public function UpdateProductAttributeStatus(Request $request, Product_Attribute $product_Attribute){
+        Session::put('page','products');
         $arr = $this->UpdateStatus($request, $product_Attribute);
         return response()->json($arr);
     }
-
     //Add Product
     public function AddProduct(Request $request){
+        Session::put('page','products');
         if($request->isMethod('post')){
 //            dd($request->toArray());
             //Upload Product Image after resize
@@ -53,13 +55,7 @@ class ProductController extends Controller
                     $extension = $image_tmp->getClientOriginalExtension();
                     //Generate New Image Name
                     $imageName = rand(111, 9999) . '.' . $extension;
-                    $LargeImagePath = 'front/images/product_images/large/' . $imageName;
-                    $mediumImagePath = 'front/images/product_images/medium/' . $imageName;
-                    $smallImagePath = 'front/images/product_images/small/' . $imageName;
-                    //Upload The Image after resizing
-                    Image::make($image_tmp)->resize(1000,1000)->save($LargeImagePath);
-                    Image::make($image_tmp)->resize(500 ,500)->save($mediumImagePath);
-                    Image::make($image_tmp)->resize(250,250)->save($smallImagePath);
+                    $this->Saving_Image($imageName, $image_tmp);
                 }
             }
             else {
@@ -147,6 +143,7 @@ class ProductController extends Controller
         }
     }
     public function GetSectionProduct(Request $request){
+        Session::put('page','products');
         if($request->ajax())
         {
             $data = $request->all();
@@ -155,6 +152,7 @@ class ProductController extends Controller
         }
     }
     public function GetSubCategory(Request $request){
+        Session::put('page','products');
         if($request->ajax())
         {
             $data = $request->all();
@@ -164,12 +162,14 @@ class ProductController extends Controller
     }
     //Delete Product
     public function DeleteProduct($id){
+        Session::put('page','products');
         Product::where('id',$id)->delete();
         $message = 'Product has been deleted successfully!';
         return redirect()->back()->with('success_message',$message);
     }
     //Edit Product Information
     public function EditProduct(Request $request,$id=null){
+        Session::put('page','products');
         if($request->isMethod('post')){
             $data = $request->all();
 //                dd($data);
@@ -249,6 +249,7 @@ class ProductController extends Controller
     }
     //Add new product attribute
     public function AddAttribute(Request $request, $id=null){
+        Session::put('page','products');
         if($request->isMethod('post')){
             $data = $request->all();
 //            dd($data);
@@ -282,11 +283,13 @@ class ProductController extends Controller
     }
     //Delete Product
     public function DeleteProductAttribute($id){
+        Session::put('page','products');
         Product_Attribute::where('id',$id)->delete();
         $message = 'Product Attribute has been deleted successfully!';
         return redirect()->back()->with('success_message',$message);
     }
     public function UpdateProductAttributeValues(Request $request){
+        Session::put('page','products');
         $data = $request->all();
 //        dd($data);
         foreach ($data['attribute_id'] as $key => $value){
@@ -300,5 +303,55 @@ class ProductController extends Controller
         $message = 'Product Attribute has been updated successfully!';
         return redirect()->back()->with('success_message',$message);
     }
-
+    public function AddImage(Request $request, $id=null){
+        if($request->isMethod('post')){
+            $id = $request->id;
+            if($request->hasFile('images')) {
+                $images = $request->file('images');
+                foreach ($images as $key => $image) {
+                    if ($image->isValid()) {
+                        //Get Image Extension
+                        $extension = $image->getClientOriginalExtension();
+                        $origName = $image->getClientOriginalName();
+                        //Generate New Image Name
+                        $imageName = $origName .'-'.rand(111, 99999) . '.' . $extension;
+                        $this->Saving_Image($imageName, $image);
+                        Product_Image::insert([
+                            'product_id' => $id,
+                            'image' => $imageName,
+                            'status' => 1,
+                        ]);
+                    }
+                }
+            }
+            return redirect()->back()->with('success_message', 'Images have been added successfully');
+        }
+        $product = Product::select('id','product_name','product_color','product_code','product_price','product_image')->with('Image')->find($id);
+//        dd($product);
+        return view('admin.products.images.add_image')->with(compact('product'));
+    }
+    public function UpdateProductImageStatus(Request $request, Product_Image $product_image){
+        Session::put('page','products');
+        $arr = $this->UpdateStatus($request, $product_image);
+        return response()->json($arr);
+    }
+    public function DeleteProductSelectedImages($id){
+        Session::put('page','products');
+        $ids = explode(",", $id);
+        foreach ($ids as $key => $value){
+            Product_Image::where('id',$value)->delete();
+        }
+        $message = 'Product Images has been deleted successfully!';
+        return redirect()->back()->with('success_message',$message);
+    }
+    public function Saving_Image(string $imageName, mixed $image): void
+    {
+        $LargeImagePath = 'front/images/product_images/large/' . $imageName;
+        $mediumImagePath = 'front/images/product_images/medium/' . $imageName;
+        $smallImagePath = 'front/images/product_images/small/' . $imageName;
+        //Upload The Image after resizing
+        Image::make($image)->resize(1000, 1000)->save($LargeImagePath);
+        Image::make($image)->resize(500, 500)->save($mediumImagePath);
+        Image::make($image)->resize(250, 250)->save($smallImagePath);
+    }
 }

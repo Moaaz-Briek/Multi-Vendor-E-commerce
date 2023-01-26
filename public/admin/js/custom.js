@@ -6,6 +6,7 @@
     //Remove active class from nav items
     $(".nav-item").removeClass("active");
     $(".nav-link").removeClass("active");
+    $('#delete_product_images').hide();
     //Check Admin Password is correct or not
     $("#current_password").keyup(function (){
         var current_password = $("#current_password").val();
@@ -28,7 +29,12 @@
             }
         })
     })
-
+    //Check on selected product images to delete it ... http://127.0.0.1:8000/admin/products/add-image/1
+    var selected = [];
+    $('#checkbox input[type=checkbox]').change(function() {
+        $("#delete_product_images").show();
+        selected.push($(this).val());
+    });
     //Update Status
     $(document).on("click", '.updateStatus', function (){
         var module = $(this).attr('module');
@@ -46,6 +52,8 @@
             url = "/admin/products/update_product_status";
         } else if(module === 'attribute'){
             url = "/admin/products/product_attributes/update_attribute_status";
+        } else if(module === 'product_image') {
+            url = "/admin/products/product_image_status";
         }
         $.ajax({
             headers: {
@@ -70,6 +78,7 @@
     $(".confirm_delete").click(function (){
        var module = $(this).attr('module');
        var module_id = $(this).attr('module_id');
+       //Delete Selected product image ... http://127.0.0.1:8000/admin/products/add-image/1
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this " + module.replace(module.charAt(0), module.charAt(0).toUpperCase()) + "?!",
@@ -103,6 +112,12 @@
                         break;
                     case 'attribute':
                         window.location = "/admin/products/product_attributes/delete-"+module+"/"+module_id;
+                        break;
+                    case 'product_image':
+                        window.location = "/admin/products/delete-"+module+"/"+module_id;
+                        break;
+                    case 'selected_images':
+                        window.location = "/admin/products/delete-"+module+"/"+selected;
                         break;
                 }
             }

@@ -26,5 +26,8 @@ class Product extends Model
     public function Attributes(){
         return $this->hasMany(Product_Attribute::class, 'product_id');
     }
+    public function Image(){
+        return $this->hasMany(Product_Image::class, 'product_id');
+    }
 
 }

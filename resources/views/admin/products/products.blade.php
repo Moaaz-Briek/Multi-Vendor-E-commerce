@@ -78,9 +78,12 @@
                                                 </a>
                                                 <a class="confirm_delete" module="product" module_id="{{$product['id']}}" title="Delete Product" href="javascript:void(0)">
                                                     <i class="mdi mdi-file-excel-box" style="font-size: 25px; color: red; margin-left: 10px"></i>
-                                                </a><br>
+                                                </a>
                                                 <a title="Add Product Attribute" href="{{url('admin/products/add-attribute/'.$product['id'])}}">
                                                     <i class="mdi mdi-plus-box" style="font-size: 25px; color: #08ea79; margin-left: 10px"></i>
+                                                </a>
+                                                <a title="Add Product Image" href="{{url('admin/products/add-image/'.$product['id'])}}">
+                                                    <i class="mdi mdi-library-plus" style="font-size: 25px; color: #08ea79; margin-left: 10px"></i>
                                                 </a>
                                             </td>
                                         </tr>

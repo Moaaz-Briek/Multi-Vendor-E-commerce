@@ -113,7 +113,14 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::get('products/product_attributes/delete-attribute/{id}','ProductController@DeleteProductAttribute');
         //Update product values
         Route::post('products/product_attributes/update_attribute_value','ProductController@UpdateProductAttributeValues');
-
+        //Add / Display product Images
+        Route::match( ['get', 'post'],'products/add-image/{id?}','ProductController@AddImage');
+        //Update product Image Status
+        Route::post('products/product_image_status','ProductController@UpdateProductImageStatus');
+        //Delete product image
+        Route::get('products/delete-product_image/{id}','ProductController@DeleteProductImage');
+        //Delete product selected image
+        Route::get('products/delete-selected_images/{id}','ProductController@DeleteProductSelectedImages');
     });
 });
 
