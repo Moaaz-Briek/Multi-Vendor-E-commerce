@@ -89,7 +89,7 @@
                 <div class="col-lg-3 col-md-9 col-sm-6">
                     <div class="brand-logo text-lg-center">
                         <a href="index.html">
-                            <img src="images/main-logo/stack-developers-logo.png" alt="Stack Developers" class="app-brand-logo">
+                            <img src="{{asset('images/main-logo/stack-developers-logo.png')}}" alt="Stack Developers" class="app-brand-logo">
                         </a>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
             <ul class="mini-cart-list">
                 <li class="clearfix">
                     <a href="single-product.html">
-                        <img src="images/product/product@1x.jpg" alt="Product">
+                        <img src="{{asset('images/product/product@1x.jpg')}}" alt="Product">
                         <span class="mini-item-name">Product name</span>
                         <span class="mini-item-price">$100.00</span>
                         <span class="mini-item-quantity"> x 1 </span>
@@ -171,7 +171,7 @@
                 </li>
                 <li class="clearfix">
                     <a href="single-product.html">
-                        <img src="images/product/product@1x.jpg" alt="Product">
+                        <img src="{{asset('images/product/product@1x.jpg')}}" alt="Product">
                         <span class="mini-item-name">Product name</span>
                         <span class="mini-item-price">$100.00</span>
                         <span class="mini-item-quantity"> x 1 </span>
@@ -179,7 +179,7 @@
                 </li>
                 <li class="clearfix">
                     <a href="single-product.html">
-                        <img src="images/product/product@1x.jpg" alt="Product">
+                        <img src="{{asset('images/product/product@1x.jpg')}}" alt="Product">
                         <span class="mini-item-name">Product name</span>
                         <span class="mini-item-price">$100.00</span>
                         <span class="mini-item-quantity"> x 1 </span>
@@ -187,7 +187,7 @@
                 </li>
                 <li class="clearfix">
                     <a href="single-product.html">
-                        <img src="images/product/product@1x.jpg" alt="Product">
+                        <img src="{{url('images/product/product@1x.jpg')}}" alt="Product">
                         <span class="mini-item-name">Product name</span>
                         <span class="mini-item-price">$100.00</span>
                         <span class="mini-item-quantity"> x 1 </span>
