@@ -51,7 +51,7 @@
                                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" required placeholder="Confirm Password">
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                <button class="btn btn-light">Cancel</button>
+                                <a type="reset" href="{{url('admin/dashboard')}}" class="btn btn-light">Cancel</a>
                             </form>
                         </div>
                     </div>

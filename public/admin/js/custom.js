@@ -119,6 +119,9 @@
                     case 'selected_images':
                         window.location = "/admin/products/delete-"+module+"/"+selected;
                         break;
+                    case 'product_video':
+                        window.location = "/admin/products/delete-"+module+"/"+module_id;
+                        break;
                 }
             }
         })
@@ -140,6 +143,7 @@
             data:{section_id: SectionId},
             success: function(resp) {
                 $('#category').empty();
+                $('#sub-category').empty();
                 // if it's a product we don't need root, but if it's a category we need the root
                 if(!Root){
                     $("#category").append('<option value="0">Root</option>');

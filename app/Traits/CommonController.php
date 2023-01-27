@@ -21,4 +21,27 @@ Trait CommonController
             return ['status'=>$status, 'module_id'=>$data['module_id']];
         }
     }
+
+    //$model_image_video_name == product_image or product_video or category_image ...
+    public function DeleteProductVideo($id, $model_image_video_name, Model $model){
+//        Session::put('page','products');
+        //Get Video name from product table
+        $file = $model::select($model_image_video_name)->where('id',$id)->first();
+        //The Path for the video
+
+        $file_path = 'front/videos/product_videos/';
+        $file_path = 'front/images/product_videos/';
+        $file_path = 'front/videos/product_videos/';
+        //Delete from domain files
+        if(file_exists($file_path.$file->$model_image_video_name)){
+            unlink($file_path.$file->$model_image_video_name);
+        }
+        //Delete from database
+        $model::where('id',$id)->update([
+            $model_image_video_name => '',
+        ]);
+        $message = 'Product Video has been deleted successfully!';
+        return redirect()->back()->with('success_message',$message);
+    }
+
 }

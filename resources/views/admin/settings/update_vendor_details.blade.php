@@ -241,7 +241,7 @@
                                                required placeholder="Enter Bank Ifsc Code">
                                     </div>
                                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                    <button class="btn btn-light">Cancel</button>
+                                    <a type="reset" href="{{redirect()->back()}}" class="btn btn-light">Cancel</a>
                                 </form>
                             </div>
                         </div>

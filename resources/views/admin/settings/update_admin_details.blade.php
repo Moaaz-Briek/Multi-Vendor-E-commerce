@@ -65,7 +65,7 @@
                                     <input type="hidden" name="current_admin_image" value="{{\Illuminate\Support\Facades\Auth::guard('admin')->user()->image}}">
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                <button class="btn btn-light">Cancel</button>
+                                <a type="reset" href="{{redirect()->back()}}" class="btn btn-light">Cancel</a>
                             </form>
                         </div>
                     </div>

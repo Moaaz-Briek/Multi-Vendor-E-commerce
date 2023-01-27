@@ -28,11 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
 Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function (){
+
     //Admin login Route
     Route::match(['get', 'post'],'/login', 'AdminController@login');
-
     Route::group(['middleware' => ['admin']], function (){
         // Admin Dashboard Route
         Route::get('/dashboard', 'AdminController@dashboard');
@@ -92,7 +91,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         //Add brands
         Route::match( ['get', 'post'],'brands/add-brand','BrandController@AddBrand' );
 
-        //Display Products
+        //.... Product CRUD ....//
         Route::get('products', 'ProductController@products');
         //Add products
         Route::match( ['get', 'post'],'products/add-product','ProductController@AddProduct' );
@@ -105,6 +104,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         //Edit products
         Route::match(['get', 'post'], 'products/edit-product/{id?}','ProductController@EditProduct');
 
+        //.... Product Images and Attributes ....//
         //Add/Display product Attribute
         Route::match( ['get', 'post'],'products/add-attribute/{id?}','ProductController@AddAttribute' );
         //Update product Attribute Status
@@ -119,9 +119,15 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::post('products/product_image_status','ProductController@UpdateProductImageStatus');
         //Delete product image
         Route::get('products/delete-product_image/{id}','ProductController@DeleteProductImage');
+        //Delete product image
+        Route::get('products/delete-product_video/{id}','ProductController@DeleteProductVideo');
         //Delete product selected image
         Route::get('products/delete-selected_images/{id}','ProductController@DeleteProductSelectedImages');
     });
+});
+
+Route::namespace('App\Http\Controllers\front')->group(function (){
+    Route::get('/', 'IndexController@index');
 });
 
 require __DIR__.'/auth.php';

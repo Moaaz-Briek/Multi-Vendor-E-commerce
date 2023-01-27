@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                             <h3 class="font-weight-normal mb-2">Add New Product:</h3>
-                            <h6 class="font-weight-normal mb-0"><a href="{{url('admins/products')}}">Back to Products</a></h6>
+                            <h6 class="font-weight-normal mb-0"><a href="{{url('admin/products')}}">Back to Products</a></h6>
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,14 @@
                                         <strong> {{Session::get('success_message')}} </strong>
                                     </div>
                                 @endif
+                                @if ($errors->any())
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </div>
+                                @endif
+
                                 <table id="categories" class="table table-striped table-bordered table-responsive text-center">
                                     <thead>
                                     <tr>
@@ -61,7 +69,7 @@
 
                                             {{--status--}}
                                             <td>
-                                                @if($product['product_status'] == 1)
+                                                @if($product['status'] == 1)
                                                     <a class="updateStatus" module="product" id="module-{{$product['id']}}" module-id="{{$product['id']}}" href="javascript:void(0)">
                                                         <i title="Active" style="font-size: 25px" class="mdi mdi-bookmark-check" status="Active"></i>
                                                     </a>
