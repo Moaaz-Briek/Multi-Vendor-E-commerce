@@ -35,7 +35,6 @@
 </head>
 
 <body>
-
 <!-- app -->
 <div id="app">
     @include('front.layout.header')

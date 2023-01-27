@@ -6,14 +6,14 @@
             <nav>
                 <ul class="primary-nav g-nav">
                     <li>
-                        <a href="tel:+111222333">
+                        <a href="tel:+201011703520">
                             <i class="fas fa-phone u-c-brand u-s-m-r-9"></i>
-                            Telephone:+111-222-333</a>
+                            Telephone:+201011703520</a>
                     </li>
                     <li>
-                        <a href="mailto:info@sitemakers.in">
+                        <a href="mailto:moaaz.briek97@gmail.com">
                             <i class="fas fa-envelope u-c-brand u-s-m-r-9"></i>
-                            E-mail: info@sitemakers.in
+                            E-mail: Moaaz.briek97@gmail.com
                         </a>
                     </li>
                 </ul>
@@ -93,7 +93,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-6 u-d-none-lg">
+                <div class="col-lg-6 d-none-lg">
                     <form class="form-searchbox">
                         <label class="sr-only" for="search-landscape">Search</label>
                         <input id="search-landscape" type="text" class="text-field" placeholder="Search everything">
