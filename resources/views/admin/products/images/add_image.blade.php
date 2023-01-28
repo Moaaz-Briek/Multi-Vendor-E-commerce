@@ -86,9 +86,7 @@
                                     <?php $i=0;?>
                                     @foreach($product['Image'] as $image)
                                         <tr>
-                                            <td style="width: 15px" id="checkbox">
-                                                <input type="checkbox" name="ids[]" id="ids" value="{{$image['id']}}">
-                                            </td>
+                                            <td style="width: 15px" id="checkbox"><input type="checkbox" name="ids" id="ids" value="{{$image['id']}}"></td>
                                             <td>{{++$i}}</td>
                                             <td>
                                                 <img class="form-img" src={{$image['image'] ? url('front/images/product_images/small/'.$image['image']) : url('front/images/product_images/small/250x250.jpg')}}>

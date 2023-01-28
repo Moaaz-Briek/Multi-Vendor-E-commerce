@@ -123,6 +123,19 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         Route::get('products/delete-product_video/{id}','ProductController@DeleteProductVideo');
         //Delete product selected image
         Route::get('products/delete-selected_images/{id}','ProductController@DeleteProductSelectedImages');
+
+        //.... Banner CRUD ....//
+        Route::get('banners', 'BannerController@banners');
+        //Add banners
+        Route::match( ['get', 'post'],'banners/add-banner','BannerController@addBanner' );
+        //Edit banners
+        Route::match( ['get', 'post'],'banners/edit-banner/{id?}','BannerController@editBanner' );
+        //Update banner status
+        Route::post('banners/update_banner_status','BannerController@UpdateBannerStatus');
+        //Delete banner
+        Route::get('banners/delete-banner/{id}','BannerController@DeleteBanner');
+        //Delete Image banner
+        Route::get('banners/delete-banner_image/{id}','BannerController@DeleteBannerImage');
     });
 });
 

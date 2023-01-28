@@ -40,19 +40,19 @@
                                         <input type="text" class="form-control" id="category_name" name="category_name" required placeholder="Enter Category Name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="section_name">Select Section Name</label>
-                                        <select class="form-control" id="section_name" name="section_id" required placeholder="Enter Section Name">
-                                            <option disabled selected value="">Select Section</option>
+                                        <label for="select_section">Select Section</label>
+                                        <select class="form-control" id="section_categories" name="section_id">
+                                            <option disabled selected value="">Select</option>
                                             @foreach($sections as $section)
-                                            <option value="{{$section['id']}}">{{$section['name']}}</option>
+                                                <option value="{{$section['id']}}">{{$section['name']}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="parent_name">Select Category Parent Name</label>
-                                        <select class="form-control SectionCategories" id="parent_name" name ="parent_id" required  placeholder="Enter Parent Category">
-                                        </select>
+                                        <label for="category_id">Select Category</label>
+                                        <select class="form-control" id="category" name="parent_id"></select>
                                     </div>
+
                                     <div class="form-group">
                                         <label for="category_discount">Category Discount</label>
                                         <input type="text" class="form-control" id="category_discount" name="category_discount" required placeholder="Enter Category Discount">

@@ -188,18 +188,19 @@ class ProductController extends Controller
     public function DeleteProductImage($id){
         Session::put('page','products');
         //Get Image name from product table
-        $product_image = Product::select('product_image')->where('id',$id)->first();
+        $product_image = Product_Image::select('image')->where('id',$id)->first();
+//        dd($product_image->ima);
         foreach (['small', 'medium', 'large'] as $dir)
         {
             //The Path for the image -> small, medium, large
             $product_image_path = 'front/images/product_images/'.$dir.'/';
             //Delete from domain files
-            if(file_exists($product_image_path.$product_image->product_image)){
-                unlink($product_image_path.$product_image->product_image);
+            if(file_exists($product_image_path.$product_image->image)){
+                unlink($product_image_path.$product_image->image);
             }
         }
         //Delete from database
-        Product::where('id',$id)->update([
+        Product_Image::where('id',$id)->update([
             'product_image' => '',
         ]);
         $message = 'Product Image has been deleted successfully!';
@@ -281,9 +282,9 @@ class ProductController extends Controller
             "category_id" => "regex:/(^[\d]+$)?/",
             "sub_category_id" => "regex:/(^[\d]+$)?/",
             "brand_id" => "required|numeric|regex:/^[\d]+$/",
-            "product_name" => "required|regex:/^[\pL\s\-*]+$/u",
+            "product_name" => "required|regex:/^[\pL\s\-*+]+$/u",
             "product_color" => "required|regex:/^[\d\w\#]+$/",
-            "product_code" => "required|regex:/^[\d\pL]+$/",
+            "product_code" => "required|regex:/^[\d\pL#-]+$/",
             "product_price" => "required|numeric|regex:/^[\d]+$/",
             "product_discount" => "required|numeric|regex:/^[\d]+$/",
             "product_weight" => "required|numeric|regex:/^[\d]+$/",

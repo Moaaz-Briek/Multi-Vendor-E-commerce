@@ -3,10 +3,12 @@
     $('#sections').DataTable();
     $('#categories').DataTable();
     $('#brands').DataTable();
+
     //Remove active class from nav items
     $(".nav-item").removeClass("active");
     $(".nav-link").removeClass("active");
     $('#delete_product_images').hide();
+
     //Check Admin Password is correct or not
     $("#current_password").keyup(function (){
         var current_password = $("#current_password").val();
@@ -29,12 +31,19 @@
             }
         })
     })
+
     //Check on selected product images to delete it ... http://127.0.0.1:8000/admin/products/add-image/1
     var selected = [];
-    $('#checkbox input[type=checkbox]').change(function() {
-        $("#delete_product_images").show();
-        selected.push($(this).val());
+    $('#checkbox input[type=checkbox]').change(function() {$("#delete_product_images").show();});
+    $('#delete_product_images').click(function (){
+        var $boxes = $('input[name=ids]:checked');
+        //reset values
+        selected = [];
+        $boxes.each(function(){
+            selected.push($(this).val());
+        });
     });
+
     //Update Status
     $(document).on("click", '.updateStatus', function (){
         var module = $(this).attr('module');
@@ -54,6 +63,8 @@
             url = "/admin/products/product_attributes/update_attribute_status";
         } else if(module === 'product_image') {
             url = "/admin/products/product_image_status";
+        } else if(module === 'banner') {
+            url = "/admin/banners/update_banner_status";
         }
         $.ajax({
             headers: {
@@ -63,6 +74,7 @@
             url:url,
             data:{status:status, module_id:module_id},
             success:function(resp){
+                console.log(resp);
                 if(resp['status']===0){
                     $("#module-"+module_id).html("<i style='font-size: 25px;' title='Inactive' class='mdi mdi-bookmark-outline' status='Inactive'></i>")
                 }else if(resp['status']===1){
@@ -122,13 +134,19 @@
                     case 'product_video':
                         window.location = "/admin/products/delete-"+module+"/"+module_id;
                         break;
+                    case 'banner':
+                        window.location = "/admin/banners/delete-"+module+"/"+module_id;
+                        break;
+                    case 'banner_image':
+                        window.location = "/admin/banners/delete-"+module+"/"+module_id;
+                        break;
                 }
             }
         })
     });
 
     //Load Section Categories
-    $(document).on("click", '#section_categories', function (){
+    $(document).on("change", '#section_categories', function (){
         var SectionId = $(this).val();
         //Check if it's a product addition or editting category, if it's a product we don't need root, but if it's a category we need the root
         var Id = $(this).attr('module');
@@ -159,7 +177,7 @@
     });
 
     //Load subCategories
-    $(document).on("click", '#category', function (){
+    $(document).on("change", '#category', function (){
         var CategoryId = $(this).val();
         $.ajax({
             headers: {

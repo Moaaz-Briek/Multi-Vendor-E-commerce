@@ -16,9 +16,9 @@ class BannersTableSeeder extends Seeder
     public function run()
     {
         $bannerRecord = [
-            ['id' => '1', 'image' => '1.jpg', 'link' => 'دفايات', 'title' => 'دفايات', 'alt' => 'دفايات', 'status' => 1],
-            ['id' => '2', 'image' => '3.jpg', 'link' => 'مفرش', 'title' => 'مفرش', 'alt' => 'مفرش', 'status' => 1],
-            ['id' => '3', 'image' => '6.jpg', 'link' => 'لحاف', 'title' => 'لحاف', 'alt' => 'لحاف', 'status' => 1],
+            ['id' => 1, 'image' => '1.jpg', 'link' => 'دفايات', 'title' => 'دفايات', 'alt' => 'دفايات', 'status' => 1],
+            ['id' => 2, 'image' => '3.jpg', 'link' => 'مفرش', 'title' => 'مفرش', 'alt' => 'مفرش', 'status' => 1],
+            ['id' => 3, 'image' => '6.jpg', 'link' => 'لحاف', 'title' => 'لحاف', 'alt' => 'لحاف', 'status' => 1],
         ];
         Banner::insert($bannerRecord);
     }

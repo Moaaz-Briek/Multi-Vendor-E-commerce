@@ -175,6 +175,29 @@
                     </ul>
                 </div>
             </li>
+        <!-- Banner Tabs -->
+        <li class="nav-item">
+            <a @if(in_array(Session::get('page'), array('banners')))
+                   style="background: #4b49ac !important;color: #fff!important;"
+               @endif
+               class="nav-link" data-toggle="collapse" href="#ui-banner" aria-expanded="false" aria-controls="ui-banner">
+                <i class="icon-layout menu-icon"></i>
+                <span class="menu-title">Banner Management</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-banner">
+                <ul class="nav flex-column sub-menu" style="background: #fff !important;color: #4b49ac !important;">
+                    <li class="nav-item"> <a @if(Session::get('page') === 'banner')
+                                                 style="background: #4b49ac !important;color: #fff!important;"
+                                             @else
+                                                 style="background: #fff !important;color: #4b49ac!important;"
+                                             @endif
+                                             class="nav-link" href="{{url('admin/banners')}}">Banners
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
         @endif
     </ul>
 </nav>
