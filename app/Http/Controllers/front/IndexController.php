@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class IndexController extends Controller
 {
     public function index(){
-        $banners = Banner::where('status', 1)->get()->toArray();
-        return view('front.index')->with(compact('banners'));
+        $fixBanners = Banner::where(['status'=>1, 'type' => 'fix'])->get()->toArray();
+        $sliderBanners = Banner::where(['status'=>1, 'type' => 'slider'])->get()->toArray();
+        return view('front.index')->with(compact('fixBanners', 'sliderBanners'));
     }
 }

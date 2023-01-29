@@ -49,6 +49,7 @@ class BannerController extends Controller
             $data = $request->all();
             Banner::insert([
                 'title' => $data['title'],
+                'type' => $data['type'],
                 'alt' => $data['alt'],
                 'link' => $data['link'],
                 'status' => $data['status'],
@@ -69,6 +70,7 @@ class BannerController extends Controller
             $data = $request->all();
             Banner::where('id', $data['id'])->update([
                 'title' => $data['title'],
+                'type' => $data['type'],
                 'alt' => $data['alt'],
                 'link' => $data['link'],
                 'status' => $data['status'],
@@ -83,12 +85,12 @@ class BannerController extends Controller
 
     public function DeleteBannerImage($id){
         Session::put('page','banners');
-        //Get Video name from product table
+        //Get banner image
         $image_file = Banner::select('image')->where('id',$id)->first();
-        //The Path for the video
+        //The Path for the image
         $image_path = 'front/images/banner_images/';
         //Delete from domain files
-        if(file_exists($image_path.$image_file->image)){
+        if(file_exists($image_path.$image_file->image) && $image_file->image!= null){
             unlink($image_path.$image_file->image);
         }
         //Delete from database
@@ -101,7 +103,18 @@ class BannerController extends Controller
 
     public function addBannerImageFunction(Request $request)
     {
-        //Upload Vendor Image
+        $type = $request->type;
+        switch ($type){
+            case 'slider':
+                $width = '1920';
+                $height = '720';
+                break;
+            case 'fix':
+                $width = '1920';
+                $height = '450';
+                break;
+        }
+        //Add New Banner Request
         if ($request->hasFile('image')) {
             $image_tmp = $request->file('image');
             if ($image_tmp->isValid()) {
@@ -111,13 +124,24 @@ class BannerController extends Controller
                 $imageName = rand(111, 9999) . '.' . $extension;
                 $imagePath = 'front/images/banner_images/' . $imageName;
                 //Upload The Image
-                Image::make($image_tmp)->resize(1920, 720)->save($imagePath);
-                return $imageName;
+                Image::make($image_tmp)->resize($width, $height)->save($imagePath);
             }
+        //Edit Banner Request
+        }else if(!empty($request->current_image)){
+            //Read the existing file
+            $image_name = 'front/images/banner_images/' . $request->current_image;
+            //Load the Image File, in-case it's a jpeg image
+            $image = imagecreatefromjpeg($image_name);
+            //Scale the image
+            $imgResized = imagescale($image , $width, $height);
+            //Save the Resized image to the directory.
+            imagejpeg($imgResized, $image_name);
+            //Assign it to imageName variable
+            $imageName = $request->current_image;
         }
         else {
             $imageName = '';
-            return $imageName;
         }
+            return $imageName;
     }
 }

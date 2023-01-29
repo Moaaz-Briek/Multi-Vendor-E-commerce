@@ -25,6 +25,7 @@
                                         <th></th>
                                         <th>ID</th>
                                         <th>Image</th>
+                                        <th>Banner type</th>
                                         <th>Link</th>
                                         <th>Title</th>
                                         <th>Alt</th>
@@ -41,6 +42,7 @@
                                             <td>
                                                 <img src="{{ url('front/images/banner_images/'.$banner['image']) }}">
                                             </td>
+                                            <td>{{$banner['type']}}</td>
                                             <td>{{$banner['link']}}</td>
                                             <td>{{$banner['title']}}</td>
                                             <td>{{$banner['alt']}}</td>

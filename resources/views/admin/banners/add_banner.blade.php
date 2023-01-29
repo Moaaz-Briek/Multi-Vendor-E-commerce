@@ -36,6 +36,14 @@
                                 <form class="forms-sample" action="{{url('admin/banners/add-banner')}}" method="post" autocomplete="on" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
+                                        <label for="banner_type">Banner Type</label>
+                                        <select name="type" class="form-control" required>
+                                            <option value="" disabled selected>Select</option>
+                                            <option value="slider">Slider</option>
+                                            <option value="fix">Fix</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="banner_title">Banner Title</label>
                                         <input type="text" class="form-control" id="banner_title" name="title" required placeholder="Banner Title">
                                     </div>

@@ -4,7 +4,7 @@
 <!-- Main-Slider -->
 <div class="default-height ph-item">
     <div class="slider-main owl-carousel">
-        @foreach($banners as $banner)
+        @foreach($sliderBanners as $banner)
             <div class="bg-image">
                 <div class="slide-content">
                     <h1>
@@ -19,16 +19,18 @@
     </div>
 </div>
 <!-- Main-Slider /- -->
+@if(isset($fixBanners[0]['image']))
 <!-- Banner-Layer -->
 <div class="banner-layer">
     <div class="container">
         <div class="image-banner">
-            <a target="_blank" rel="nofollow" href="https://youtube.com/stackdevelopers" class="mx-auto banner-hover effect-dark-opacity">
-                <img class="img-fluid" src="{{asset('front/images/banners/stack-developers.png')}}" alt="Winter Season Banner">
+            <a target="_blank" rel="nofollow" href="{{url($fixBanners[0]['link'])}}" class="mx-auto banner-hover effect-dark-opacity">
+                <img class="img-fluid" title="{{$fixBanners[0]['title']}}" src="{{asset('front/images/banner_images/'.$fixBanners[0]['image'])}}" alt="{{$fixBanners[0]['alt']}}">
             </a>
         </div>
     </div>
 </div>
+@endif
 <!-- Banner-Layer /- -->
 <!-- Top Collection -->
 <section class="section-maker">
@@ -1085,17 +1087,19 @@
     </div>
 </section>
 <!-- Top Collection /- -->
+@if(isset($fixBanners[1]['image']))
 <!-- Banner-Layer -->
 <div class="banner-layer">
     <div class="container">
         <div class="image-banner">
-            <a target="_blank" rel="nofollow" href="https://youtube.com/stackdevelopers" class="mx-auto banner-hover effect-dark-opacity">
-                <img class="img-fluid" src="{{asset('front/images/banners/stack-developers.png')}}" alt="Winter Season Banner">
+            <a target="_blank" rel="nofollow" href="{{url($fixBanners[1]['link'])}}" class="mx-auto banner-hover effect-dark-opacity">
+                <img class="img-fluid" title="{{$fixBanners[1]['title']}}" src="{{asset('front/images/banner_images/'.$fixBanners[1]['image'])}}" alt="{{$fixBanners[1]['alt']}}">
             </a>
         </div>
     </div>
 </div>
-<!-- Banner-Layer /- -->
+@endif
+<!-- Banner-Layer -->
 <!-- Site-Priorities -->
 <section class="app-priority">
     <div class="container">

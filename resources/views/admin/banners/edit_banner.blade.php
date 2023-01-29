@@ -35,6 +35,14 @@
                         <div class="card-body">
                             <form class="forms-sample" action="{{url('admin/banners/edit-banner')}}" method="post" autocomplete="on" enctype="multipart/form-data">
                                 @csrf
+                                <div class="form-group">
+                                    <label for="banner_type">Banner Type</label>
+                                    <select name="type" class="form-control" required>
+                                        <option value="" disabled>Select</option>
+                                        <option {{(!empty($banner['type']) && ($banner['type'] == 'slider')) ? "selected": ''}} value="slider">Slider</option>
+                                        <option {{(!empty($banner['type']) && ($banner['type'] == 'fix')) ? "selected": ''}} value="fix">Fix</option>
+                                    </select>
+                                </div>
                                 <input type="hidden" name="id" value="{{$banner['id']}}">
                                 <div class="form-group">
                                     <label for="banner_title">Banner Title</label>
