@@ -1,16 +1,21 @@
+{{--<!-- <?php $banners = \App\Models\Banner::get()->toArray(); ?> -->--}}
 @extends('front.layout.layout')
 @section('content')
 <!-- Main-Slider -->
 <div class="default-height ph-item">
     <div class="slider-main owl-carousel">
-        @for($num=1; $num<17; $num++)
+        @foreach($banners as $banner)
             <div class="bg-image">
                 <div class="slide-content">
-                    <h1><img src="{{asset('front/images/banners/'.$num.'.jpeg')}}"></h1>
-                    <h2>Spring Collection</h2>
+                    <h1>
+                        <a href="{{(!empty($banner['link'])) ? url($banner['link']) : "javascript:;" }}">
+                            <img alt="{{$banner['alt']}}" title="{{$banner['title']}}" src="{{asset('front/images/banner_images/'.$banner['image'])}}">
+                        </a>
+                    </h1>
+                    <h2>{{$banner['title']}}</h2>
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div>
 </div>
 <!-- Main-Slider /- -->

@@ -192,7 +192,7 @@
                                              @else
                                                  style="background: #fff !important;color: #4b49ac!important;"
                                              @endif
-                                             class="nav-link" href="{{url('admin/banners')}}">Banners
+                                             class="nav-link" href="{{url('admin/banners')}}">Slider Banners
                         </a>
                     </li>
                 </ul>

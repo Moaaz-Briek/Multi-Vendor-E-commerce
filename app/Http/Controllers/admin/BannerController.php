@@ -44,23 +44,7 @@ class BannerController extends Controller
 
     public function AddBanner(Request $request){
         if($request->isMethod('post')){
-            $data = $request->all();
-            //Upload Vendor Image
-            if ($request->hasFile('image')) {
-                $image_tmp = $request->file('image');
-                if ($image_tmp->isValid()) {
-                    //Get Image Extension
-                    $extension = $image_tmp->getClientOriginalExtension();
-                    //Generate New Image Name
-                    $imageName = rand(111, 9999) . '.' . $extension;
-                    $imagePath = 'front/images/banner_images/' . $imageName;
-                    //Upload The Image
-                    Image::make($image_tmp)->save($imagePath);
-                }
-            }
-            else {
-                $imageName = '';
-            }
+            $imageName = $this->addBannerImageFunction($request);
             //Insert Data into database
             $data = $request->all();
             Banner::insert([
@@ -75,27 +59,12 @@ class BannerController extends Controller
             return view('admin.banners.add_banner');
         }
     }
+
     public function editBanner(Request $request, $id=null)
     {
         if($request->isMethod('post')){
-            $data = $request->all();
-//            dd($data);
-            //Upload Vendor Image
-            if ($request->hasFile('image')) {
-                $image_tmp = $request->file('image');
-                if ($image_tmp->isValid()) {
-                    //Get Image Extension
-                    $extension = $image_tmp->getClientOriginalExtension();
-                    //Generate New Image Name
-                    $imageName = rand(111, 9999) . '.' . $extension;
-                    $imagePath = 'front/images/banner_images/' . $imageName;
-                    //Upload The Image
-                    Image::make($image_tmp)->save($imagePath);
-                }
-            }
-            else {
-                $imageName = '';
-            }
+            //Upload Banner Image
+            $imageName = $this->addBannerImageFunction($request);
             //Insert Data into database
             $data = $request->all();
             Banner::where('id', $data['id'])->update([
@@ -111,6 +80,7 @@ class BannerController extends Controller
             return view('admin.banners.edit_banner')->with(compact('banner'));
         }
     }
+
     public function DeleteBannerImage($id){
         Session::put('page','banners');
         //Get Video name from product table
@@ -127,5 +97,27 @@ class BannerController extends Controller
         ]);
         $message = 'Banner Image has been deleted successfully!';
         return redirect()->back()->with('success_message',$message);
+    }
+
+    public function addBannerImageFunction(Request $request)
+    {
+        //Upload Vendor Image
+        if ($request->hasFile('image')) {
+            $image_tmp = $request->file('image');
+            if ($image_tmp->isValid()) {
+                //Get Image Extension
+                $extension = $image_tmp->getClientOriginalExtension();
+                //Generate New Image Name
+                $imageName = rand(111, 9999) . '.' . $extension;
+                $imagePath = 'front/images/banner_images/' . $imageName;
+                //Upload The Image
+                Image::make($image_tmp)->resize(1920, 720)->save($imagePath);
+                return $imageName;
+            }
+        }
+        else {
+            $imageName = '';
+            return $imageName;
+        }
     }
 }
