@@ -138,8 +138,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="is_featured">Featured Items</label>
-                                    <input type="checkbox" id="is_featured" name="is_featured" value="yes"
-                                           {{($product['is_featured'] === 'yes') ? 'checked':''}}>
+                                    <input type="checkbox" id="is_featured" name="is_featured" value="Yes"
+                                           {{($product['is_featured'] === 'Yes') ? 'checked':''}}>
+                                    &nbsp&nbsp|&nbsp&nbsp
+                                    <label for="is_bestseller">Best Seller Items</label>
+                                    <input type="checkbox" id="is_bestseller" name="is_bestseller" value="Yes"
+                                        {{($product['is_bestseller'] === 'Yes') ? 'checked':''}}>
                                 </div>
 
                                 <div class="form-group">

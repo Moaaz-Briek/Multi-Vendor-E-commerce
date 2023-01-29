@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('banners', function ($table) {
-            $table->string('type')->after('image');
+        Schema::table('products', function ($table) {
+            $table->enum('is_bestseller', ['No','Yes'])->after('is_featured');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('banners', function ($table) {
-            $table->dropColumnc('type');
+        Schema::table('products', function ($table) {
+            $table->dropColumn('is_bestseller');
         });
     }
 };

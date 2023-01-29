@@ -53,19 +53,20 @@
                                             <td>{{$product['product_code']}}</td>
                                             <td>{{$product['product_color']}}</td>
                                             <td>
-                                                <img
-                                                    src="{{$product['product_image'] ? asset('front/images/product_images/small/' . $product['product_image']) : asset('front/images/product_images/small/250x250.jpg')}}"
-                                                >
+                                                <img src="{{($product['product_image'] && file_exists('front/images/product_images/small/' . $product['product_image']))
+                                                        ? asset('front/images/product_images/small/'
+                                                        . $product['product_image']) : asset('front/images/product_images/small/250x250.jpg')}}">
                                             </td>
                                             <td>{{$product['section']['name']}}</td>
                                             <td>{{($product['category'] !== null ? $product['category']['category_name'] : '-')}}</td>
                                             <td>{{$product['brand']['name']}}</td>
                                             <td><a href="{{url('admin/admins/view_admin_details/'.$product['admin']['id'])}}" title="Show Details"> {{$product['admin'] !== null ? ucfirst($product['admin']['type']) : '-' }} </a></td>
 
-                                            <td><a
-                                                    href="{{$product['vendor'] !== null ? url('admin/admins/view_vendor_details/'.$product['vendor']['id']) : "" }}" title="Show Details">
+                                            <td>
+                                                <a href="{{$product['vendor'] !== null ? url('admin/admins/view_vendor_details/'.$product['vendor']['id']) : "" }}" title="Show Details">
                                                     {{$product['vendor'] !== null ? ucfirst($product['vendor']['name']) : "" }}
-                                                </a></td>
+                                                </a>
+                                            </td>
 
                                             {{--status--}}
                                             <td>

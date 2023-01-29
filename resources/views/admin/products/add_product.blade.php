@@ -120,10 +120,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="is_featured">Featured Items</label>
-                                        <input type="checkbox" id="is_featured" name="is_featured" value="yes"
+                                        <input type="checkbox" id="is_featured" name="is_featured" value="Yes"
+                                               required checked="">
+                                        &nbsp&nbsp|&nbsp&nbsp
+                                        <label for="is_bestseller">Best Seller Items</label>
+                                        <input type="checkbox" id="is_bestseller" name="is_bestseller" value="Yes"
                                                required checked="">
                                     </div>
-
                                     <div class="form-group">
                                         <label class="form-label">Product Image (Recommended Size: 1000*1000)</label>
                                         <input type="file" class="form-control form-control-lg" id="product_image" name="product_image">

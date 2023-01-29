@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
-
 {
     use CommonController;
     //Display All categories
@@ -56,6 +55,22 @@ class ProductController extends Controller
         return view('admin.products.add_product')->with(compact('sections', 'brands'));
 
     }
+    //Edit Product Information
+    public function EditProduct(Request $request,$id=null){
+        Session::put('page','products');
+        if($request->isMethod('post')){
+            //If Request is Post
+            $this->Add_Edit($request, 'update');
+            return redirect('admin/products')->with('success_message', 'Product has been Updated Successfully!');
+        }
+        else{
+            //If Request is Get
+            $product = Product::with('section','category','SubCategory', 'brand')->where('id', $id)->get()->first()->toArray();
+            $sections = Section::with('categories')->get()->toArray();
+            $brands = Brand::get()->toArray();
+            return view('admin.products.edit_product')->with(compact('brands','product', 'sections'));
+        }
+    }
     public function GetSectionProduct(Request $request){
         Session::put('page','products');
         if($request->ajax())
@@ -80,22 +95,6 @@ class ProductController extends Controller
         Product::where('id',$id)->delete();
         $message = 'Product has been deleted successfully!';
         return redirect()->back()->with('success_message',$message);
-    }
-    //Edit Product Information
-    public function EditProduct(Request $request,$id=null){
-        Session::put('page','products');
-        if($request->isMethod('post')){
-            //If Request is Post
-            $this->Add_Edit($request, 'update');
-            return redirect('admin/products')->with('success_message', 'Product has been Updated Successfully!');
-        }
-        else{
-            //If Request is Get
-            $product = Product::with('section','category','SubCategory', 'brand')->where('id', $id)->get()->first()->toArray();
-            $sections = Section::with('categories')->get()->toArray();
-            $brands = Brand::get()->toArray();
-            return view('admin.products.edit_product')->with(compact('brands','product', 'sections'));
-        }
     }
     //Add new product attribute
     public function AddAttribute(Request $request, $id=null){
@@ -189,13 +188,12 @@ class ProductController extends Controller
         Session::put('page','products');
         //Get Image name from product table
         $product_image = Product_Image::select('image')->where('id',$id)->first();
-//        dd($product_image->ima);
         foreach (['small', 'medium', 'large'] as $dir)
         {
             //The Path for the image -> small, medium, large
             $product_image_path = 'front/images/product_images/'.$dir.'/';
             //Delete from domain files
-            if(file_exists($product_image_path.$product_image->image)){
+            if(file_exists($product_image_path.$product_image->image && $product_image->image != null)){
                 unlink($product_image_path.$product_image->image);
             }
         }
@@ -254,13 +252,11 @@ class ProductController extends Controller
                 //Generate New Image Name
                 $imageName = rand(111, 9999) . '.' . $extension;
                 $this->Saving_Image($imageName, $image_tmp);
-            }
-        }
+            }}
         else {
             $imageName = '';
         }
-
-        //Product Video
+        //Upload the Product Video
         if($request->hasFile('product_video')){
             $video_tmp = $request->file('product_video');
             if($video_tmp->isValid()){
@@ -276,13 +272,13 @@ class ProductController extends Controller
         }else{
             $videoName = '';
         }
-
+        //Define the validation rules
         $rules = [
             "section_id" => "required|numeric|regex:/^[\d]+$/",
             "category_id" => "regex:/(^[\d]+$)?/",
             "sub_category_id" => "regex:/(^[\d]+$)?/",
             "brand_id" => "required|numeric|regex:/^[\d]+$/",
-            "product_name" => "required|regex:/^[\pL\s\-*+]+$/u",
+            "product_name" => "required|regex:/^[\pL\s\d\-*+]+$/u",
             "product_color" => "required|regex:/^[\d\w\#]+$/",
             "product_code" => "required|regex:/^[\d\pL#-]+$/",
             "product_price" => "required|numeric|regex:/^[\d]+$/",
@@ -296,7 +292,6 @@ class ProductController extends Controller
             'product_image' => 'mimes:jpg,png,jpeg,gif,svg|max:2048',
 //                    'product_video' => 'required|mimes:video/mp4,qt|max:2000000',
         ];
-
         $this->validate($request, $rules);
         //Insert Data into database
         $admin_type = Auth::guard('admin')->user()->type;
@@ -306,51 +301,31 @@ class ProductController extends Controller
         $data = $request->all();
         $data['category_id'] = (empty($data['category_id'])) ? null : $data['category_id'];
         $data['sub_category_id'] = (empty($data['sub_category_id'])) ? null : $data['sub_category_id'];
-        (!empty($data['is_featured'])  && $data['is_featured']== 'yes') ?  : $data['is_featured'] = "No";
-        (($method == 'insert') ? Product::$method([
-            "section_id" => $data['section_id'],
-            "category_id" => $data['category_id'],
-            "sub_category_id" => $data['sub_category_id'],
-            "brand_id" => $data['brand_id'],
-            "product_name" => $data['product_name'],
-            "product_color" => $data['product_color'],
-            "product_code" => $data['product_code'],
-            "product_price" => $data['product_price'],
-            "product_discount" => $data['product_discount'],
-            "product_weight" => $data['product_weight'],
-            "meta_title" => $data['meta_title'],
-            "meta_description" => $data['meta_description'],
-            "meta_keywords" => $data['meta_keywords'],
-            "product_description" => $data['product_description'],
-            "is_featured" => $data['is_featured'],
-            "status" => $data['product_status'],
-            "admin_type" => $admin_type,
-            "admin_id" => $admin_id,
-            "vendor_id" => $vendor_id,
-            "product_image" => $imageName,
-            "product_video" => $videoName,
-        ]) : Product::where('id', $data['id'])->$method([
-            "section_id" => $data['section_id'],
-            "category_id" => $data['category_id'],
-            "sub_category_id" => $data['sub_category_id'],
-            "brand_id" => $data['brand_id'],
-            "product_name" => $data['product_name'],
-            "product_color" => $data['product_color'],
-            "product_code" => $data['product_code'],
-            "product_price" => $data['product_price'],
-            "product_discount" => $data['product_discount'],
-            "product_weight" => $data['product_weight'],
-            "meta_title" => $data['meta_title'],
-            "meta_description" => $data['meta_description'],
-            "meta_keywords" => $data['meta_keywords'],
-            "product_description" => $data['product_description'],
-            "is_featured" => $data['is_featured'],
-            "status" => $data['product_status'],
-            "admin_type" => $admin_type,
-            "admin_id" => $admin_id,
-            "vendor_id" => $vendor_id,
-            "product_image" => $imageName,
-            "product_video" => $videoName,
-        ]));
-        }
+        (!empty($data['is_featured'])  && $data['is_featured']== 'Yes') ?  : $data['is_featured'] = "No";
+        (!empty($data['is_bestseller'])  && $data['is_bestseller']== 'Yes') ?  : $data['is_bestseller'] = "No";
+        $product = ($method == 'insert') ? new Product() : Product::find($data['id']);
+        $product->section_id = $data['section_id'];
+        $product->category_id = $data['category_id'];
+        $product->sub_category_id = $data['sub_category_id'];
+        $product->brand_id = $data['brand_id'];
+        $product->product_name = $data['product_name'];
+        $product->product_color = $data['product_color'];
+        $product->product_code = $data['product_code'];
+        $product->product_price = $data['product_price'];
+        $product->product_discount = $data['product_discount'];
+        $product->product_weight = $data['product_weight'];
+        $product->meta_title = $data['meta_title'];
+        $product->meta_description = $data['meta_description'];
+        $product->meta_keywords = $data['meta_keywords'];
+        $product->product_description = $data['product_description'];
+        $product->is_featured = $data['is_featured'];
+        $product->is_bestseller = $data['is_bestseller'];
+        $product->status = $data['product_status'];
+        $product->admin_type = $admin_type;
+        $product->admin_id = $admin_id;
+        $product->vendor_id = $vendor_id;
+        $product->product_image = $imageName;
+        $product->product_video = $videoName;
+        $product->save();
+    }
 }
