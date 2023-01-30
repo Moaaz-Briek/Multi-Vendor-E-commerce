@@ -40,7 +40,7 @@
     @include('front.layout.header')
     @yield('content')
     @include('front.layout.footer')
-    @include('front.layout.modals')
+{{--    @include('front.layout.modals')--}}
 </div>
 <!-- app /- -->
 <!--[if lte IE 9]>
