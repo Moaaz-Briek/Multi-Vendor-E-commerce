@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -141,6 +142,12 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
 
 Route::namespace('App\Http\Controllers\front')->group(function (){
     Route::get('/', 'IndexController@index');
+    //Listing Categories Routes
+    $categoryUrl = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach ($categoryUrl as $key => $url)
+    {
+        Route::get('/'.$url, 'ProductsController@listing');
+    }
 });
 
 require __DIR__.'/auth.php';
