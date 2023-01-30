@@ -87,7 +87,7 @@
     });
 
     //Confirm Delete (Sweet JavaScript)
-    $(".confirm_delete").click(function (){
+    $(document).on("click",".confirm_delete", function (){
        var module = $(this).attr('module');
        var module_id = $(this).attr('module_id');
        //Delete Selected product image ... http://127.0.0.1:8000/admin/products/add-image/1

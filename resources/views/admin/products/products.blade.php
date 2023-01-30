@@ -52,10 +52,10 @@
                                             <td>{{$product['product_name']}}</td>
                                             <td>{{$product['product_code']}}</td>
                                             <td>{{$product['product_color']}}</td>
-                                            <td>
+                                            <td style="width:60px; height:60px">
                                                 <img src="{{($product['product_image'] && file_exists('front/images/product_images/small/' . $product['product_image']))
                                                         ? asset('front/images/product_images/small/'
-                                                        . $product['product_image']) : asset('front/images/product_images/small/250x250.jpg')}}">
+                                                        . $product['product_image']) : asset('front/images/product_images/small/250x250.jpg')}}" width="60" height="60" >
                                             </td>
                                             <td>{{$product['section']['name']}}</td>
                                             <td>{{($product['category'] !== null ? $product['category']['category_name'] : '-')}}</td>
