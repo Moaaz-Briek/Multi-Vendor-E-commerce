@@ -23,9 +23,15 @@ class Category extends Model
 
     public static function categoryDetails($url)
     {
-        //Get all categories and subCategories with url = $url
-        $categoryDetails = Category::select('id', 'category_name', 'url')->with('SubCategory')->where('url', $url)->first()->toArray();
-
+        /**
+         * Get all categories and subCategories with url = $url
+         */
+        $categoryDetails = Category::select('id', 'parent_id', 'category_name', 'url')
+            ->with(['SubCategory' => function($query){$query->select('id','parent_id','category_name','url');}])
+            ->where('url', $url)->first()->toArray();
+        /**
+         * Get Category and SubCategories Ids
+         */
         //Define an array to holds the category and subcategories ids.
         $catId = array();
         //Push Category id
@@ -35,7 +41,23 @@ class Category extends Model
         {
             $catId[] = $subCat['id'];
         }
+        /**
+         * Shop-Page bread-crumb
+         */
+        if($categoryDetails['parent_id'] == 0)
+        {
+            //Root Categories have parent_id = 0, then only Show Root Category
+            $breadcrumbs = '<li class=""><a href="'.url($categoryDetails['url']).'">'.$categoryDetails['category_name'].'</a></li>';
+        }
+        else
+        {
+            //SubCategories have parent_id != 0, then we need to get their root category first.
+            $parentCategory = Category::where('id', $categoryDetails['parent_id'])->select('category_name', 'url')->first()->toArray();
 
-        return array('catIds'=>$catId, 'categoryDetails'=>$categoryDetails);
+            $breadcrumbs = '<li class="has-separator"><a href="'.url($parentCategory['url']).'">'.$parentCategory['category_name'].'</a></li>
+                            <li class=""><a href="'.url($categoryDetails['url']).'">'.$categoryDetails['category_name'].'</a></li>';
+        }
+
+        return array('catIds'=>$catId, 'categoryDetails'=>$categoryDetails, 'bread-crumb' => $breadcrumbs);
     }
 }
