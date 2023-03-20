@@ -18,6 +18,7 @@ use Intervention\Image\Facades\Image;
 class ProductController extends Controller
 {
     use CommonController;
+
     //Display All categories
     public function products(){
         Session::put('page','products');
@@ -30,17 +31,20 @@ class ProductController extends Controller
         ])->get()->toArray();
         return view('admin.products.products')->with(compact('products'));
     }
+
     //Update Product status
     public function UpdateProductStatus(Request $request, Product $product){
         Session::put('page','products');
         $arr = $this->UpdateStatus($request, $product);
         return response()->json($arr);
     }
+
     public function UpdateProductAttributeStatus(Request $request, Product_Attribute $product_Attribute){
         Session::put('page','products');
         $arr = $this->UpdateStatus($request, $product_Attribute);
         return response()->json($arr);
     }
+
     //Add Product
     public function AddProduct(Request $request){
         Session::put('page','products');
@@ -55,6 +59,7 @@ class ProductController extends Controller
         return view('admin.products.add_product')->with(compact('sections', 'brands'));
 
     }
+
     //Edit Product Information
     public function EditProduct(Request $request,$id=null){
         Session::put('page','products');
@@ -71,6 +76,7 @@ class ProductController extends Controller
             return view('admin.products.edit_product')->with(compact('brands','product', 'sections'));
         }
     }
+
     public function GetSectionProduct(Request $request){
         Session::put('page','products');
         if($request->ajax())
@@ -80,6 +86,7 @@ class ProductController extends Controller
             return response()->json($categ);
         }
     }
+
     public function GetSubCategory(Request $request){
         Session::put('page','products');
         if($request->ajax())
@@ -89,6 +96,7 @@ class ProductController extends Controller
             return response()->json($categ);
         }
     }
+
     //Delete Product
     public function DeleteProduct($id){
         Session::put('page','products');
@@ -96,6 +104,7 @@ class ProductController extends Controller
         $message = 'Product has been deleted successfully!';
         return redirect()->back()->with('success_message',$message);
     }
+
     //Add new product attribute
     public function AddAttribute(Request $request, $id=null){
         Session::put('page','products');
@@ -130,6 +139,7 @@ class ProductController extends Controller
 //        dd($product);
         return view('admin.products.add_edit_attribute')->with(compact('product'));
     }
+
     //Delete Product
     public function DeleteProductAttribute($id){
         Session::put('page','products');
@@ -137,6 +147,7 @@ class ProductController extends Controller
         $message = 'Product Attribute has been deleted successfully!';
         return redirect()->back()->with('success_message',$message);
     }
+
     public function UpdateProductAttributeValues(Request $request){
         Session::put('page','products');
         $data = $request->all();
@@ -152,6 +163,7 @@ class ProductController extends Controller
         $message = 'Product Attribute has been updated successfully!';
         return redirect()->back()->with('success_message',$message);
     }
+
     public function AddImage(Request $request, $id=null){
         if($request->isMethod('post')){
             $id = $request->id;
@@ -179,11 +191,14 @@ class ProductController extends Controller
 //        dd($product);
         return view('admin.products.images.add_image')->with(compact('product'));
     }
-    public function UpdateProductImageStatus(Request $request, Product_Image $product_image){
+
+    public function UpdateProductImageStatus(Request $request, Product_Image $product_image)
+    {
         Session::put('page','products');
         $arr = $this->UpdateStatus($request, $product_image);
         return response()->json($arr);
     }
+
     public function DeleteProductImage($id){
         Session::put('page','products');
         //Get Image name from product table
@@ -204,6 +219,7 @@ class ProductController extends Controller
         $message = 'Product Image has been deleted successfully!';
         return redirect()->back()->with('success_message',$message);
     }
+
     public function DeleteProductVideo($id){
         Session::put('page','products');
         //Get Video name from product table
@@ -242,6 +258,7 @@ class ProductController extends Controller
         Image::make($image)->resize(250, 250)->save($smallImagePath);
     }
     public function Add_Edit(Request $request, $method){
+        $data = $request->all();
         //Upload Product Image after resize
         //small: 250*250, medium: 500*500, large: 1000*1000
         if ($request->hasFile('product_image')) {
@@ -251,8 +268,13 @@ class ProductController extends Controller
                 $extension = $image_tmp->getClientOriginalExtension();
                 //Generate New Image Name
                 $imageName = rand(111, 9999) . '.' . $extension;
+                //Saving image in Files
                 $this->Saving_Image($imageName, $image_tmp);
-            }}
+            }
+        }
+        else if(!empty($data['current_product_image'])){
+            $imageName = $data['current_product_image'];
+        }
         else {
             $imageName = '';
         }
@@ -290,7 +312,7 @@ class ProductController extends Controller
             "product_description" => "required|regex:/^[\pL\s\-*]+$/u",
             "is_featured" => "regex:/(^[\pL\s\-*]+$)?/",
             'product_image' => 'mimes:jpg,png,jpeg,gif,svg|max:2048',
-//                    'product_video' => 'required|mimes:video/mp4,qt|max:2000000',
+//            'product_video' => 'required|mimes:video/mp4,qt|max:2000000',
         ];
         $this->validate($request, $rules);
         //Insert Data into database

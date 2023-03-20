@@ -12,16 +12,12 @@ class ProductsController extends Controller
     {
         $url = Route::getFacadeRoot()->current()->uri();
         $categoryCount = Category::where(['url'=> $url, 'status' => 1])->count();
-        if($categoryCount > 0)
-        {
+        if($categoryCount > 0) {
             $categoryDetails = Category::categoryDetails($url);
             $categoryProducts = Product::with(['brand', 'SubCategory', 'category'])
-                ->whereIn('category_id', $categoryDetails['catIds'])->where('status', 1)->get()->toArray();
+                ->whereIn('category_id', $categoryDetails['catIds'])->where('status', 1)->simplePaginate(3);
             return view('front.products.listing')->with(compact('categoryDetails','categoryProducts'));
-
-        }
-        else
-        {
+        }  else  {
             abort(404);
         }
     }

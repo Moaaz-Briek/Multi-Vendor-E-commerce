@@ -29,8 +29,7 @@
 {{--                        <div class="brand-logo">--}}
 {{--                            <img src="{{url('admin/images/logo.svg')}}" alt="logo" />--}}
 {{--                        </div>--}}
-                        <h4>Hello! let's get started</h4>
-                        <h6 class="font-weight-light">Sign in to continue.</h6>
+                        <h4 class="font-weight-light">Sign in to continue.</h4>
                         @if ($errors->any())
                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                 @foreach ($errors->all() as $error)

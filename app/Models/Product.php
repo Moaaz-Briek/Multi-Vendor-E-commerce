@@ -29,8 +29,20 @@ class Product extends Model
     public function Attributes(){
         return $this->hasMany(Product_Attribute::class, 'product_id');
     }
+
     public function Image(){
         return $this->hasMany(Product_Image::class, 'product_id');
     }
 
+    public static function isProductNew($product_id)
+    {
+        $productIds = Product::select('id')->where('status', 1)->orderBy('id', 'Desc')->limit(3)->pluck('id');
+        $productIds = json_decode(json_encode($productIds), true);
+        if(in_array($product_id, $productIds)) {
+            $isProductNew = "Yes";
+        } else {
+            $isProductNew = "No";
+        }
+        return $isProductNew;
+    }
 }

@@ -91,18 +91,18 @@ class CategoryController extends Controller
 
     //Edit Category Information
     public function EditCategory(Request $request,$id=null){
-            if($request->isMethod('post')){
+            if($request->isMethod('post')) {
                 $data = $request->all();
 //                dd($data);
                 //Upload Admin Image
-                if($request->hasFile('category_image')){
+                if ($request->hasFile('category_image')) {
                     $image_tmp = $request->file('category_image');
-                    if($image_tmp->isValid()){
+                    if ($image_tmp->isValid()) {
                         //Get Image Extension
                         $extension = $image_tmp->getClientOriginalExtension();
                         //Generate New Image Name
-                        $imageName = rand(111,9999).'.'.$extension;
-                        $imagePath = 'front/images/category_images/'.$imageName;
+                        $imageName = rand(111, 9999) . '.' . $extension;
+                        $imagePath = 'front/images/category_images/' . $imageName;
                         //Upload The Image
                         Image::make($image_tmp)->save($imagePath);
                     }
@@ -175,6 +175,7 @@ class CategoryController extends Controller
         $message = 'Category has been deleted successfully!';
         return redirect()->back()->with('success_message',$message);
     }
+
     public function DeleteCategoryImage($id){
         $category_image = Category::select('category_image')->where('id',$id)->first();
         $category_image_path = 'front/images/category_images/';
