@@ -141,12 +141,12 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
 });
 
 Route::namespace('App\Http\Controllers\front')->group(function (){
-    Route::get('/', 'IndexController@index');
+    Route::get( '/', 'IndexController@index');
+
     //Listing Categories Routes
-    $categoryUrl = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
-    foreach ($categoryUrl as $key => $url)
-    {
-        Route::get('/'.$url, 'ProductsController@listing');
+    $categoryUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    foreach ($categoryUrls as $key => $url) {
+        Route::match(['get', 'post'],'/'.$url, 'ProductsController@listing');
     }
 });
 
