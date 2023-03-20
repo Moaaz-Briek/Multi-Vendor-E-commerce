@@ -44,18 +44,21 @@
                         </a>
                     </div>
                     <!-- Toolbar Sorter 1  -->
-                    <div class="toolbar-sorter">
+                    <form name="sortProducts" id="sortProducts">
+                        <div class="toolbar-sorter">
                         <div class="select-box-wrapper">
-                            <label class="sr-only" for="sort-by">Sort By</label>
-                            <select class="select-box" id="sort-by">
-                                <option selected="selected" value="">Sort By: Best Selling</option>
-                                <option value="">Sort By: Latest</option>
-                                <option value="">Sort By: Lowest Price</option>
-                                <option value="">Sort By: Highest Price</option>
-                                <option value="">Sort By: Best Rating</option>
+                            <label class="sort" for="sort-by">Sort By</label>
+                            <select name="sort" id="sort" class="select-box" autocomplete="off">
+                                <option selected="" value="">Select</option>
+                                <option @if(isset($_GET['sort']) && $_GET['sort'] == "latest") selected @endif value="latest">Sort By: Latest</option>
+                                <option @if(isset($_GET['sort']) && $_GET['sort'] == "lowest") selected @endif value="lowest">Sort By: Lowest Price</option>
+                                <option @if(isset($_GET['sort']) && $_GET['sort'] == "highest") selected @endif value="highest">Sort By: Highest Price</option>
+                                <option @if(isset($_GET['sort']) && $_GET['sort'] == "a-z") selected @endif value="a-z">Sort By: Name A - Z</option>
+                                <option @if(isset($_GET['sort']) && $_GET['sort'] == "z-a") selected @endif value="z-a">Sort By: Name Z - A</option>
                             </select>
                         </div>
                     </div>
+                    </form>
                     <!-- //end Toolbar Sorter 1  -->
                     <!-- Toolbar Sorter 2  -->
                     <div class="toolbar-sorter-2">
@@ -141,42 +144,15 @@
                     @endforeach
                 </div>
                 <!-- Row-of-Product-Container /- -->
-                <div> {{$categoryProducts->links()}} </div>
+                <!-- Shop-Pagination -->
+                <!-- This if condition helps in moving between pages and making the sort value of the select input exists -->
+                @if(isset($_GET['sort']))
+                    <div> {{$categoryProducts->appends(['sort' => $_GET['sort']])->links()}} </div>
+                @else
+                    <div> {{$categoryProducts->links()}} </div>
+                @endif
+                <!-- End Shop-Pagination -->
             </div>
-            <!-- Shop-Right-Wrapper /- -->
-            <!-- Shop-Pagination -->
-{{--            <div class="pagination-area">--}}
-{{--                <div class="pagination-number">--}}
-{{--                    <ul>--}}
-{{--                        <li style="display: none">--}}
-{{--                            <a href="shop-v1-root-category.html" title="Previous">--}}
-{{--                                <i class="fa fa-angle-left"></i>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="active">--}}
-{{--                            <a href="shop-v1-root-category.html">1</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="shop-v1-root-category.html">2</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="shop-v1-root-category.html">3</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="shop-v1-root-category.html">...</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="shop-v1-root-category.html">10</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="shop-v1-root-category.html" title="Next">--}}
-{{--                                <i class="fa fa-angle-right"></i>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-            <!-- Shop-Pagination /- -->
         </div>
     </div>
 </div>
