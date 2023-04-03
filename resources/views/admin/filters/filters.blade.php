@@ -40,11 +40,11 @@
                                             <td>{{$filter['cat_ids']}}</td>
                                             <td>
                                                 @if($filter['status'] == 1)
-                                                    <a class="updateStatus" title="Active" module="brand" id="module-{{$filter['id']}}" module-id="{{$filter['id']}}" href="javascript:void(0)">
+                                                    <a class="updateStatus" title="Active" module="filter" id="module-{{$filter['id']}}" module-id="{{$filter['id']}}" href="javascript:void(0)">
                                                         <i style="font-size: 25px" class="mdi mdi-bookmark-check" status="Active"></i>
                                                     </a>
                                                 @else
-                                                    <a class="updateStatus" title="Inactive" module="brand" id="module-{{$filter['id']}}" module-id="{{$filter['id']}}" href="javascript:void(0)">
+                                                    <a class="updateStatus" title="Inactive" module="filter" id="module-{{$filter['id']}}" module-id="{{$filter['id']}}" href="javascript:void(0)">
                                                         <i style="font-size: 25px" class="mdi mdi-bookmark-outline" status="Inactive"></i>
                                                     </a>
                                                 @endif

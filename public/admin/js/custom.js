@@ -65,7 +65,10 @@
             url = "/admin/products/product_image_status";
         } else if(module === 'banner') {
             url = "/admin/banners/update_banner_status";
+        } else if(module === 'filter') {
+            url = "/admin/filters/update_filter_status";
         }
+
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
