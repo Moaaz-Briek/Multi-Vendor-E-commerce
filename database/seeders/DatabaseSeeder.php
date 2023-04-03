@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Brand;
+use App\Models\ProductsFilter;
 use App\Models\VendorsBusinessDetail;
 use Illuminate\Database\Seeder;
 
@@ -31,7 +32,7 @@ class DatabaseSeeder extends Seeder
 //        $this->call(BrandsTableSeeder::class);
 //        $this->call(ProductTableSeeder::class);
 //        $this->call(BannersTableSeeder::class);
-
-
+//        $this->call(FiltersTableSeeder::class);
+//        $this->call(FiltersValuesTableSeeder::class);
     }
 }
