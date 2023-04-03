@@ -35,14 +35,14 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
                 <!-- Page-Bar -->
                 <div class="page-bar clearfix">
-                    <div class="shop-settings">
-                        <a id="list-anchor">
-                            <i class="fas fa-th-list"></i>
-                        </a>
-                        <a id="grid-anchor" class="active">
-                            <i class="fas fa-th"></i>
-                        </a>
-                    </div>
+{{--                    <div class="shop-settings">--}}
+{{--                        <a id="list-anchor">--}}
+{{--                            <i class="fas fa-th-list"></i>--}}
+{{--                        </a>--}}
+{{--                        <a id="grid-anchor" class="active">--}}
+{{--                            <i class="fas fa-th"></i>--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
                     <!-- Toolbar Sorter 1  -->
                     <form name="sortProducts" id="sortProducts">
                         <input type="hidden" name="url" id="url" value="{{$url}}">
@@ -84,9 +84,9 @@
                 <!-- Shop-Pagination -->
                 <!-- This if condition helps in moving between pages and making the sort value of the select input exists -->
                 @if(isset($_GET['sort']))
-                    <div> {{$categoryProducts->appends(['sort' => $_GET['sort']])->links()}} </div>
+                    <div>{{$categoryProducts->appends(['sort' => $_GET['sort']])->links()}} </div>
                 @else
-                    <div> {{$categoryProducts->links()}} </div>
+                    <div>{{$categoryProducts->links()}} </div>
                 @endif
                 <!-- End Shop-Pagination -->
             </div>

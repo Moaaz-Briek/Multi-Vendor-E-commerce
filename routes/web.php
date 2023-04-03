@@ -29,11 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function (){
+Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(callback: function (){
 
-    //Admin login Route
-    Route::match(['get', 'post'],'/login', 'AdminController@login');
-    Route::group(['middleware' => ['admin']], function (){
+        //Admin login Route
+        Route::match(['get', 'post'],'/login', 'AdminController@login');
+        Route::group(['middleware' => ['admin']], function (){
         // Admin Dashboard Route
         Route::get('/dashboard', 'AdminController@dashboard');
         //Admin logout Route
@@ -125,6 +125,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
         //Delete product selected image
         Route::get('products/delete-selected_images/{id}','ProductController@DeleteProductSelectedImages');
 
+        //.... Filter CRUD ....//
+        Route::get('filters', 'FilterController@filters');
+
         //.... Banner CRUD ....//
         Route::get('banners', 'BannerController@banners');
         //Add banners
@@ -142,7 +145,6 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(function
 
 Route::namespace('App\Http\Controllers\front')->group(function (){
     Route::get( '/', 'IndexController@index');
-
     //Listing Categories Routes
     $categoryUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
     foreach ($categoryUrls as $key => $url) {

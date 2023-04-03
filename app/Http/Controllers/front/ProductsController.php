@@ -30,6 +30,7 @@ class ProductsController extends Controller
             $categoryDetails = Category::categoryDetails($url);
             $categoryProducts = Product::with(['brand', 'SubCategory', 'category'])
                 ->whereIn('category_id', $categoryDetails['catIds'])->where('status', 1);
+
             //Filtering Products based on Latest | Lowest price | Highest Price | A-Z | Z-A
             if (isset($_GET['sort']) && !empty($_GET['sort'])) {
                 if ($_GET['sort'] == 'latest') {
