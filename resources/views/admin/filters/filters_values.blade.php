@@ -6,9 +6,10 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <a type="button" class="btn btn-primary float-end" href="{{url('admin/brands/add-brand')}}">Add New Filter</a>
+                            <h1 class="text-black-50">Filters Values:</h1>
+                            <a type="button" class="btn btn-primary float-end ms-2" href="{{url('admin/filters/')}}">View Filters</a>
+                            <a type="button" class="btn btn-primary float-end" href="{{url('admin/filters/add_filter_value')}}">Add New Filter Value</a>
                             <div class="table-responsive pt-3">
-                                <h4 class="card-title">All Filters Values:</h4>
                                 @if(Session::has('error_message'))
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <strong>Error : </strong> {{Session::get('error_message')}}
