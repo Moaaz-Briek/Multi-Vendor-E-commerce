@@ -40,7 +40,15 @@
                                             <td>{{++$i}}</td>
                                             <td>{{$filter['filter_name']}}</td>
                                             <td>{{$filter['filter_column']}}</td>
-                                            <td>{{$filter['cat_ids']}}</td>
+                                            <td>
+                                                    <?php
+                                                    $catIds = explode(',', $filter['cat_ids']);
+                                                    foreach ($catIds as $key => $catId) {
+                                                        $category_name = Category::getCategoryName($catId);
+                                                        echo  " | " . $category_name;
+                                                    }
+                                                    ?>
+                                            </td>
                                             <td>
                                                 @if($filter['status'] == 1)
                                                     <a class="updateStatus" title="Active" module="filter" id="module-{{$filter['id']}}" module-id="{{$filter['id']}}" href="javascript:void(0)">
