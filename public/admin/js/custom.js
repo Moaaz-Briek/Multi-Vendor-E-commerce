@@ -67,6 +67,8 @@
             url = "/admin/banners/update_banner_status";
         } else if(module === 'filter') {
             url = "/admin/filters/update_filter_status";
+        } else if(module === 'filterValue') {
+            url = "/admin/filters/update_filter_value_status";
         }
 
         $.ajax({

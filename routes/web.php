@@ -127,8 +127,13 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\admin')->group(callback
 
         //.... Filter CRUD ....//
         Route::get('filters', 'FilterController@filters');
+        //Filter Values
+        Route::get('filters-values', 'FilterController@filterValues');
         //Update filter status
-        Route::post('filters/update_filter_status','FilterController@UpdateFilterStatus');
+        Route::post('filters/update_filter_status','FilterController@updateFilterStatus');
+        //Update filter value status
+        Route::post('filters/update_filter_value_status','FilterController@updateFilterValueStatus');
+
 
         //.... Banner CRUD ....//
         Route::get('banners', 'BannerController@banners');
