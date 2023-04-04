@@ -60,4 +60,10 @@ class Category extends Model
 
         return array('catIds'=>$catId, 'categoryDetails'=>$categoryDetails, 'bread-crumb' => $breadcrumbs);
     }
+
+    public static function getCategoryName($category_id)
+    {
+        $getCategory = Category::select('category_name')->where('id',$category_id)->first();
+        return $getCategory->category_name;
+    }
 }
