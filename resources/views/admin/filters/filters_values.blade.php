@@ -37,7 +37,11 @@
                                         <tr>
                                             <td>{{++$i}}</td>
                                             <td>{{$filter['filter_id']}}</td>
-                                            <td></td>
+                                            <td>
+                                                <?php
+                                                    echo \App\Models\ProductsFilters::getFilterName($filter['filter_id'])
+                                                ?>
+                                            </td>
                                             <td>{{$filter['filter_value']}}</td>
                                             <td>
                                                 @if($filter['status'] == 1)
