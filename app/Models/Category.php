@@ -63,7 +63,7 @@ class Category extends Model
 
     public static function getCategoryName($category_id)
     {
-        $getCategory = Category::select('category_name')->where('id',$category_id)->first();
-        return $getCategory->category_name;
+        $Category = Category::select('category_name')->where('id',$category_id)->first();
+        return ($Category->category_name);
     }
 }
