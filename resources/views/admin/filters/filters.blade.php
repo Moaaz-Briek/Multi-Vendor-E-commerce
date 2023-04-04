@@ -7,8 +7,10 @@
                     <div class="card">
                         <div class="card-body">
                             <h1 class="text-black-50">Filters:</h1>
-                            <a type="button" class="btn btn-primary float-end ms-2" href="{{url('admin/filters/add_filter')}}">Add New Filter Column</a>
-                            <a type="button" class="btn btn-secondary float-end" href="{{url('admin/filters/filters_values')}}">View Filter Values</a>
+                            <a type="button" class="btn btn-primary float-end ms-2"
+                               href="{{url('admin/filters/add_filter')}}">Add New Filter Column</a>
+                            <a type="button" class="btn btn-secondary float-end"
+                               href="{{url('admin/filters/filters_values')}}">View Filter Values</a>
                             <div class="table-responsive pt-3">
                                 @if(Session::has('error_message'))
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
