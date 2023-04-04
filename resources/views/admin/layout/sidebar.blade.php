@@ -172,6 +172,13 @@
                                                      style="background: #fff !important;color: #4b49ac!important;"
                                                  @endif
                                 class="nav-link" href="{{url('admin/products')}}">Products</a></li>
+
+                        <li class="nav-item"> <a @if(Session::get('page') === 'filters')
+                                                     style="background: #4b49ac !important;color: #fff!important;"
+                                                 @else
+                                                     style="background: #fff !important;color: #4b49ac!important;"
+                                                 @endif
+                                                 class="nav-link" href="{{url('admin/filters')}}">Filters</a></li>
                     </ul>
                 </div>
             </li>
@@ -193,7 +200,7 @@
                                                  style="background: #fff !important;color: #4b49ac!important;"
                                              @endif
                                              class="nav-link" href="{{url('admin/banners')}}">Banners
-                        </a>
+                                         </a>
                     </li>
                 </ul>
             </div>
